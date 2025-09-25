@@ -25,10 +25,10 @@ const TechStackSection = () => {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Powered by Leading Technology
+            Built with the Best Tools
           </h2>
           <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
-            Built on industry-leading frameworks and platforms for maximum reliability and performance.
+            We use trusted, cutting-edge technology so your AI solutions are reliable and secure.
           </p>
         </div>
 

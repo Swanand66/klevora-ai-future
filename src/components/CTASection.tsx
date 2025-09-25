@@ -9,11 +9,10 @@ const CTASection = () => {
         {/* Main CTA Block */}
         <div className="card-glow text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Grow Smarter?
+            Ready to Get Klever?
           </h2>
           <p className="text-xl text-foreground-muted mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join hundreds of SMEs who have transformed their operations with Klevora's AI solutions. 
-            Start your free consultation today and discover how AI can revolutionize your business.
+            Stop doing work that a computer could handle. Let's talk about how AI can make your business life easier.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -31,19 +30,19 @@ const CTASection = () => {
 
           {/* Trust Indicators */}
           <div className="mt-12 pt-8 border-t border-border">
-            <p className="text-sm text-foreground-muted mb-4">Trusted by 500+ SMEs worldwide</p>
+            <p className="text-sm text-foreground-muted mb-4">Join 500+ businesses already working smarter</p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6 text-sm text-foreground-muted">
               <div className="flex items-center">
                 <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                Free 30-minute consultation
+                Free chat to see if we're a fit
               </div>
               <div className="flex items-center">
                 <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                No commitment required
+                No pressure, no commitments
               </div>
               <div className="flex items-center">
                 <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                Custom AI strategy included
+                Honest advice about what you need
               </div>
             </div>
           </div>

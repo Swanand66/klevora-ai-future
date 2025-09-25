@@ -6,25 +6,25 @@ const AITeamSection = () => {
     {
       icon: Users,
       title: 'HR Assistant',
-      description: 'Automate recruitment, onboarding, and employee management with intelligent screening and personalized communications.',
+      description: "Stop drowning in resumes and interview scheduling. This AI finds the right people faster and handles all the paperwork.",
       features: ['Resume Screening', 'Interview Scheduling', 'Employee Onboarding']
     },
     {
       icon: DollarSign,
       title: 'Finance Agent',
-      description: 'Streamline financial operations with automated reporting, expense tracking, and intelligent budget analysis.',
+      description: "No more spreadsheet headaches. Get instant financial insights and catch problems before they become expensive mistakes.",
       features: ['Expense Automation', 'Financial Reports', 'Budget Optimization']
     },
     {
       icon: TrendingUp,
       title: 'Performance Monitor',
-      description: 'Track KPIs, analyze trends, and generate actionable insights to optimize your business performance.',
+      description: "See what's really working in your business. Get clear reports that actually help you make better decisions.",
       features: ['KPI Tracking', 'Trend Analysis', 'Performance Reports']
     },
     {
       icon: Settings,
       title: 'Operations Manager',
-      description: 'Optimize workflows, manage resources, and automate routine operational tasks for maximum efficiency.',
+      description: "Turn chaos into smooth operations. Automate the daily grind so your team can focus on the big picture.",
       features: ['Workflow Automation', 'Resource Management', 'Task Optimization']
     }
   ];
@@ -38,7 +38,7 @@ const AITeamSection = () => {
             Meet Your New AI Team
           </h2>
           <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-            Specialized AI agents designed to transform different aspects of your business operations.
+            Think of these as your digital employees - they never take breaks, never make mistakes, and they love doing the repetitive tasks you hate.
           </p>
         </div>
 

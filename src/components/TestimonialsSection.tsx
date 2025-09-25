@@ -7,21 +7,21 @@ import avatar3 from '@/assets/testimonial-avatar-3.png';
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      quote: "Klevora's AI solutions transformed our HR processes completely. What used to take weeks now happens in hours, and the quality of candidate screening has improved dramatically.",
+      quote: "Our hiring used to be a nightmare - weeks of sorting through resumes and scheduling interviews. Now it's automated and we actually find better candidates faster.",
       name: "Sarah Chen",
       title: "CEO, TechFlow Solutions",
       avatar: avatar1,
       rating: 5
     },
     {
-      quote: "The financial automation agent has been a game-changer for our accounting department. We've reduced manual errors by 95% and freed up our team to focus on strategic planning.",
+      quote: "I used to spend hours every week on financial reports. Now I get better insights in minutes, and my accountant actually has time to help me grow the business.",
       name: "Michael Rodriguez", 
       title: "CFO, GrowthCorp Industries",
       avatar: avatar2,
       rating: 5
     },
     {
-      quote: "Implementation was seamless and the ongoing support is exceptional. Our operational efficiency has increased by 40% since deploying Klevora's AI agents.",
+      quote: "I was worried about the tech setup, but it was surprisingly easy. Now my team spends time on what matters instead of repetitive tasks.",
       name: "David Kim",
       title: "Operations Director, InnovateTech",
       avatar: avatar3,
@@ -56,7 +56,7 @@ const TestimonialsSection = () => {
             What Our Clients Say
           </h2>
           <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-            Real results from businesses that have transformed their operations with Klevora's AI solutions.
+            Real people, real businesses, real results. Here's what happens when you upgrade to AI.
           </p>
         </div>
 

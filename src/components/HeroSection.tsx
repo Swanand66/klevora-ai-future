@@ -21,8 +21,7 @@ const HeroSection = () => {
 
         {/* Subheading */}
         <p className="text-xl md:text-2xl text-foreground-muted max-w-4xl mx-auto mb-12 leading-relaxed">
-          We empower Small and Medium-sized Enterprises with custom AI solutions, 
-          turning complex challenges into intelligent, automated workflows.
+          Your klever upgrade
         </p>
 
         {/* CTA Buttons */}
@@ -44,20 +43,12 @@ const HeroSection = () => {
           </Button>
         </div>
 
-        {/* Floating stats or indicators */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">500+</div>
-            <div className="text-foreground-muted">SMEs Automated</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">95%</div>
-            <div className="text-foreground-muted">Efficiency Increase</div>
-          </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">24/7</div>
-            <div className="text-foreground-muted">AI Support</div>
-          </div>
+        {/* Simple description */}
+        <div className="mt-16 max-w-3xl mx-auto text-center">
+          <p className="text-lg text-foreground-muted leading-relaxed">
+            We help small and medium businesses work smarter, not harder. 
+            Our AI assistants handle the boring stuff so you can focus on what really matters - growing your business.
+          </p>
         </div>
       </div>
     </section>

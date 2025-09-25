@@ -6,22 +6,22 @@ const ProcessSection = () => {
     {
       icon: Brain,
       title: 'Train',
-      description: 'We analyze your business processes and train AI models specifically tailored to your industry and requirements.'
+      description: "We learn how your business works and teach our AI to understand your specific needs and challenges."
     },
     {
       icon: Code,
       title: 'Develop',
-      description: 'Our team develops custom AI solutions using cutting-edge technologies and best practices for your specific needs.'
+      description: "We build your AI assistants using the best tools available, making sure they fit perfectly into your workflow."
     },
     {
       icon: TestTube,
       title: 'Test',
-      description: 'Rigorous testing ensures your AI solutions perform optimally in real-world scenarios before deployment.'
+      description: "We make sure everything works perfectly with your real data before you start relying on it daily."
     },
     {
       icon: Rocket,
       title: 'Deploy',
-      description: 'Seamless integration into your existing workflows with ongoing support and continuous optimization.'
+      description: "Your AI team goes live and starts helping immediately. We stick around to make sure everything runs smoothly."
     }
   ];
 
@@ -31,10 +31,10 @@ const ProcessSection = () => {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Our Proven Process
+            How We Make It Happen
           </h2>
           <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-            A systematic approach to delivering AI solutions that drive real business results.
+            Simple steps to get your AI team up and running. No tech headaches, just results.
           </p>
         </div>
 
