@@ -15,12 +15,18 @@ export default {
     extend: {
       colors: {
         border: "hsl(var(--border))",
+        "border-muted": "hsl(var(--border-muted))",
         input: "hsl(var(--input))",
+        "input-border": "hsl(var(--input-border))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
+        "background-subtle": "hsl(var(--background-subtle))",
         foreground: "hsl(var(--foreground))",
+        "foreground-muted": "hsl(var(--foreground-muted))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
+          bright: "hsl(var(--primary-bright))",
+          dark: "hsl(var(--primary-dark))",
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -30,6 +36,14 @@ export default {
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
+        },
+        success: {
+          DEFAULT: "hsl(var(--success))",
+          foreground: "hsl(var(--success-foreground))",
+        },
+        warning: {
+          DEFAULT: "hsl(var(--warning))",
+          foreground: "hsl(var(--warning-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -46,22 +60,21 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
+          border: "hsl(var(--card-border))",
         },
       },
+      fontFamily: {
+        primary: "var(--font-family-primary)",
+      },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
+        lg: "var(--radius-lg)",
+        md: "var(--radius)",
         sm: "calc(var(--radius) - 4px)",
+        xl: "var(--radius-xl)",
+      },
+      boxShadow: {
+        glow: "var(--shadow-glow)",
+        "glow-strong": "var(--shadow-glow-strong)",
       },
       keyframes: {
         "accordion-down": {
@@ -84,6 +97,9 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "marquee": "marquee 25s linear infinite",
+        "float-bg": "float-bg 20s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
       },
     },
   },
