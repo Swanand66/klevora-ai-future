@@ -1,6 +1,12 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Play } from 'lucide-react';
+import cloudLogo from '@/assets/cloud-logo.png';
+import fastapiLogo from '@/assets/fastapi-logo.png';
+import huggingfaceLogo from '@/assets/huggingface-logo.png';
+import langchainLogo from '@/assets/langchain-logo.png';
+import pytorchLogo from '@/assets/pytorch-logo.png';
+import tensorflowLogo from '@/assets/tensorflow-logo.png';
 
 const HeroSection = () => {
   const scrollToSection = (sectionId: string) => {
@@ -12,16 +18,19 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 lg:px-8 z-10">
-      <div className="max-w-6xl mx-auto text-center">
+      {/* Background handled globally by AnimatedBackground */}
+
+      <div className="max-w-6xl mx-auto text-center relative z-10">
         {/* Main Headline */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
-          Grow Smarter with{' '}
-          <span className="text-gradient">Klevora</span>
+          <span className="text-gradient block">klevora</span>
+          <span className="block text-white text-4xl md:text-6xl lg:text-7xl">
+            Your Klever Upgrade
+          </span>
         </h1>
 
-        {/* Subheading */}
-        <p className="text-xl md:text-2xl text-foreground-muted max-w-4xl mx-auto mb-12 leading-relaxed">
-          Your klever upgrade
+        {/* Subheading (empty since moved above) */}
+        <p className="text-3xl md:text-4xl lg:text-5xl text-foreground-muted max-w-4xl mx-auto mb-12 leading-relaxed font-semibold">
         </p>
 
         {/* CTA Buttons */}
