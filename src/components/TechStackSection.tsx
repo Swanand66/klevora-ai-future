@@ -25,10 +25,10 @@ const TechStackSection = () => {
         {/* Section Title */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Built with the Best Tools
+            Powered by Leading Technology
           </h2>
           <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
-            We use trusted, cutting-edge technology so your AI solutions are reliable and secure.
+            We use a modern, robust tech stack to build scalable and powerful AI solutions.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ const TechStackSection = () => {
                 key={`${tech.name}-${index}`}
                 className="flex-none mx-8 md:mx-12 lg:mx-16"
               >
-                <div className="flex flex-col items-center justify-center p-6 rounded-xl bg-card border border-card-border hover:border-primary transition-all duration-300 w-32 h-32 md:w-40 md:h-40">
+                <div className="flex flex-col items-center justify-center">
                   <img
                     src={tech.logo}
                     alt={`${tech.name} logo`}
