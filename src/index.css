@@ -211,7 +211,7 @@
   }
 
   .card-agent {
-    @apply card-glow hover:transform hover:scale-105 hover:border-primary;
+    @apply card-glow transition-all duration-300 ease-out hover:scale-[1.02] hover:shadow-xl hover:shadow-primary/10;
   }
 
   /* Text Gradients */

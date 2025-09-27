@@ -4,10 +4,10 @@ import { ArrowRight, Calendar, Mail, Linkedin } from 'lucide-react';
 
 const CTASection = () => {
   return (
-    <section id="contact" className="relative py-12 px-6 lg:px-8 z-10">
+    <section id="contact" className="relative py-12 px-6 lg:px-8 z-30">
       <div className="max-w-3xl mx-auto">
         {/* Main CTA Block */}
-        <div className="card-glow text-center mb-10">
+        <div className="card-glow text-center mb-10 relative z-40">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Get Klever?
           </h2>
@@ -15,17 +15,25 @@ const CTASection = () => {
             Stop doing work that a computer could handle. Let's talk about how AI can make your business life easier.
           </p>
           
-          <div className="flex justify-center items-center">
-            <Button className="btn-primary group px-8 py-4 h-auto">
-              <Calendar className="w-4 h-4 mr-2" />
-              Book Your Free Meet
-              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
+          <div className="flex justify-center items-center relative z-20">
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfipqB176GFhkG3gCRtQCiTY4zltTVIuPUnlNE-oYv-LGBTrQ/viewform?usp=header" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block cursor-pointer"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <Button className="btn-primary group px-8 py-4 h-auto cursor-pointer">
+                <Calendar className="w-4 h-4 mr-2" />
+                Connect with the team
+                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </a>
           </div>
 
           {/* Trust Indicators */}
           <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-sm text-foreground-muted mb-3">Join 500+ businesses already working smarter</p>
+            <p className="text-sm text-foreground-muted mb-3">Join 10+ businesses already working smarter</p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-foreground-muted">
               <div className="flex items-center">
                 <div className="w-2 h-2 rounded-full bg-success mr-2" />
@@ -64,12 +72,17 @@ const CTASection = () => {
           </div>
 
           <div className="text-center p-4 rounded-xl bg-card border border-card-border hover:border-primary transition-colors duration-300">
-            <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
-            <h3 className="font-semibold mb-1 text-sm">Schedule Meet</h3>
-            <p className="text-foreground-muted text-xs mb-2">See our AI agents in action</p>
-            <button className="text-primary hover:text-primary-bright transition-colors text-sm">
-              Book Meeting
-            </button>
+              <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
+              <h3 className="font-semibold mb-1 text-sm">Schedule Meet</h3>
+              <p className="text-foreground-muted text-xs mb-2">See our AI agents in action</p>
+              <a
+                href="https://calendar.app.google/b8pHAUmKzqDH3ZYb7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary-bright transition-colors text-sm"
+              >
+                Book Meeting
+              </a>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Users, DollarSign, TrendingUp, Settings } from 'lucide-react';
+import { Users, Calculator, BarChart3, Cog } from 'lucide-react';
 
 const AITeamSection = () => {
   const agents = [
@@ -10,19 +10,19 @@ const AITeamSection = () => {
       features: ['Resume Screening', 'Interview Scheduling', 'Employee Onboarding']
     },
     {
-      icon: DollarSign,
+      icon: Calculator,
       title: 'Finance Agent',
       description: "No more spreadsheet headaches. Get instant financial insights and catch problems before they become expensive mistakes.",
       features: ['Expense Automation', 'Financial Reports', 'Budget Optimization']
     },
     {
-      icon: TrendingUp,
+      icon: BarChart3,
       title: 'Performance Monitor',
       description: "See what's really working in your business. Get clear reports that actually help you make better decisions.",
       features: ['KPI Tracking', 'Trend Analysis', 'Performance Reports']
     },
     {
-      icon: Settings,
+      icon: Cog,
       title: 'Operations Manager',
       description: "Turn chaos into smooth operations. Automate the daily grind so your team can focus on the big picture.",
       features: ['Workflow Automation', 'Resource Management', 'Task Optimization']
@@ -56,8 +56,8 @@ const AITeamSection = () => {
               >
                 {/* Icon */}
                 <div className="mb-6">
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary-bright flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <IconComponent className="w-8 h-8 text-primary-foreground" />
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary-bright flex items-center justify-center mb-4 transition-all duration-300 ease-out group-hover:scale-[1.03] group-hover:shadow-lg">
+                    <IconComponent className="w-8 h-8 text-primary-foreground transition-all duration-300 ease-out" />
                   </div>
                 </div>
 
@@ -85,7 +85,7 @@ const AITeamSection = () => {
                 </div>
 
                 {/* Hover Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out rounded-xl pointer-events-none" />
               </div>
             );
           })}

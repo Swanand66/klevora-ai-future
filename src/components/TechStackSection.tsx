@@ -45,7 +45,7 @@ const TechStackSection = () => {
         </div>
 
         {/* Marquee Container */}
-        <div className="relative overflow-hidden -mx-6 lg:-mx-8">
+        <div className="relative overflow-hidden w-screen -ml-[50vw] left-1/2">
           {/* Marquee */}
           <div className="flex whitespace-nowrap animate-marquee">
             {duplicatedTechs.map((tech, index) => (

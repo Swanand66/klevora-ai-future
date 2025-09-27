@@ -3,9 +3,9 @@ import klerovaLogo from '@/assets/klerova-logo.png';
 
 const Footer = () => {
   return (
-    <footer className="relative bg-background-subtle border-t border-border py-12 px-6 lg:px-8 z-10">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+    <footer className="relative bg-background-subtle border-t border-border py-12 px-4 sm:px-6 lg:px-8 z-10">
+      <div className="w-full">
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
           {/* Logo and Brand */}
           <div className="flex items-center space-x-2">
             <img 
@@ -42,7 +42,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-foreground-muted text-sm">
-            © {new Date().getFullYear()} <span className="text-gradient font-black tracking-tight">klevora</span>. All rights reserved. Empowering SMEs with intelligent AI solutions.
+            © {new Date().getFullYear()} <span className="text-gradient font-black tracking-tight">klevora</span>. All rights reserved. Empowering businesses with intelligent AI solutions.
           </p>
         </div>
       </div>
