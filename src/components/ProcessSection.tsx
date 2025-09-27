@@ -40,9 +40,6 @@ const ProcessSection = () => {
 
         {/* Process Flow */}
         <div className="relative">
-          {/* Connection Line */}
-          <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 process-line" />
-          
           {/* Steps */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4">
             {steps.map((step, index) => {
@@ -55,19 +52,13 @@ const ProcessSection = () => {
                     animationDelay: `${index * 0.2}s`
                   }}
                 >
-                  {/* Step Number */}
-                  <div className="absolute -top-4 -left-4 w-8 h-8 rounded-full bg-primary text-primary-foreground text-sm font-bold flex items-center justify-center z-10">
-                    {index + 1}
-                  </div>
 
-                  {/* Icon Circle */}
+                  {/* Icon */}
                   <div className="relative mb-6">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-bright flex items-center justify-center shadow-glow group-hover:shadow-glow-strong transition-all duration-300 transform group-hover:scale-110 z-10 relative">
-                      <IconComponent className="w-10 h-10 text-primary-foreground" />
-                    </div>
-                    
-                    {/* Glowing ring */}
-                    <div className="absolute inset-0 rounded-full border-2 border-primary/30 animate-pulse" />
+                    <IconComponent className="w-16 h-16 text-primary transition-all duration-300 transform group-hover:scale-110" style={{
+                      animation: 'bounce-gentle 2s ease-in-out infinite',
+                      animationDelay: `${index * 0.3}s`
+                    }} />
                   </div>
 
                   {/* Content */}
@@ -79,11 +70,6 @@ const ProcessSection = () => {
                       {step.description}
                     </p>
                   </div>
-
-                  {/* Connection to next step (mobile) */}
-                  {index < steps.length - 1 && (
-                    <div className="lg:hidden mt-8 mb-4 w-0.5 h-12 bg-gradient-to-b from-primary to-transparent" />
-                  )}
                 </div>
               );
             })}

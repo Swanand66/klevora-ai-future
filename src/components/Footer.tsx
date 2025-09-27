@@ -1,4 +1,5 @@
 import React from 'react';
+import klerovaLogo from '@/assets/klerova-logo.png';
 
 const Footer = () => {
   return (
@@ -7,10 +8,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
           {/* Logo and Brand */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-bright rounded-lg flex items-center justify-center">
-              <span className="text-background font-bold text-lg">K</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">Klevora</span>
+            <img 
+              src={klerovaLogo} 
+              alt="Klevora Logo" 
+              className="w-10 h-10 object-contain"
+            />
+            <span className="text-xl font-black text-gradient tracking-tight">klevora</span>
           </div>
 
           {/* Links */}
@@ -39,7 +42,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-border text-center">
           <p className="text-foreground-muted text-sm">
-            © {new Date().getFullYear()} Klevora. All rights reserved. Empowering SMEs with intelligent AI solutions.
+            © {new Date().getFullYear()} <span className="text-gradient font-black tracking-tight">klevora</span>. All rights reserved. Empowering SMEs with intelligent AI solutions.
           </p>
         </div>
       </div>

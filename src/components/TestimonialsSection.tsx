@@ -48,14 +48,14 @@ const TestimonialsSection = () => {
   }, []);
 
   return (
-    <section id="testimonials" className="relative py-20 px-6 lg:px-8 z-10">
-      <div className="max-w-6xl mx-auto">
+    <section id="testimonials" className="relative py-12 px-6 lg:px-8 z-10">
+      <div className="max-w-4xl mx-auto">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+        <div className="text-center mb-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
+          <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
             Real people, real businesses, real results. Here's what happens when you upgrade to AI.
           </p>
         </div>
@@ -72,28 +72,28 @@ const TestimonialsSection = () => {
                   key={index}
                   className="w-full flex-shrink-0 px-4"
                 >
-                  <div className="card-glow max-w-4xl mx-auto text-center">
+                  <div className="card-glow max-w-3xl mx-auto text-center">
                     {/* Stars */}
-                    <div className="flex justify-center mb-6">
+                    <div className="flex justify-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-primary fill-current" />
+                        <Star key={i} className="w-4 h-4 text-primary fill-current" />
                       ))}
                     </div>
 
                     {/* Quote */}
-                    <blockquote className="text-xl md:text-2xl text-foreground leading-relaxed mb-8 font-medium">
+                    <blockquote className="text-lg md:text-xl text-foreground leading-relaxed mb-6 font-medium">
                       "{testimonial.quote}"
                     </blockquote>
 
                     {/* Author */}
-                    <div className="flex items-center justify-center space-x-4">
+                    <div className="flex items-center justify-center space-x-3">
                       <img
                         src={testimonial.avatar}
                         alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-primary/20"
+                        className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
                       />
                       <div className="text-left">
-                        <div className="font-semibold text-foreground text-lg">
+                        <div className="font-semibold text-foreground">
                           {testimonial.name}
                         </div>
                         <div className="text-foreground-muted">
@@ -123,12 +123,12 @@ const TestimonialsSection = () => {
           </button>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-6 space-x-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === currentIndex 
                     ? 'bg-primary scale-110' 
                     : 'bg-foreground-muted/30 hover:bg-foreground-muted/50'
