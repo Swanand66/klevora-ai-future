@@ -74,7 +74,7 @@ const HeroSection = () => {
           <div className="md:w-1/2">
             <video
               ref={videoRef}
-              src="/klevora-demo.mp4"
+              src="/videos/klevora-demo.mp4"
               controlsList="nodownload nofullscreen noplaybackrate nodisable"
               controls
               className="w-full rounded-md shadow-lg bg-black h-full"
