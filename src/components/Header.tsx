@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import klerovaLogo from '@/assets/klerova-logo.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,18 +26,20 @@ const Header = () => {
 
   return (
     <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-border' : 'bg-transparent'
+      className={`sticky top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/95 backdrop-blur-lg border-b-2 border-primary/30 shadow-lg' : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary-bright rounded-lg flex items-center justify-center">
-              <span className="text-background font-bold text-lg">K</span>
-            </div>
-            <span className="text-xl font-bold text-foreground">Klevora</span>
+            <img 
+              src={klerovaLogo} 
+              alt="Klevora Logo" 
+              className="w-11 h-11 object-contain"
+            />
+            <span className="text-2xl font-black text-gradient tracking-tight">klevora</span>
           </div>
 
           {/* Desktop Navigation */}

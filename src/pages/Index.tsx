@@ -6,7 +6,6 @@ import TechStackSection from '@/components/TechStackSection';
 import AITeamSection from '@/components/AITeamSection';
 import ProcessSection from '@/components/ProcessSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
-import SmartContentSection from '@/components/SmartContentSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
 
@@ -26,7 +25,6 @@ const Index = () => {
         <AITeamSection />
         <ProcessSection />
         <TestimonialsSection />
-        <SmartContentSection />
         <CTASection />
       </main>
       

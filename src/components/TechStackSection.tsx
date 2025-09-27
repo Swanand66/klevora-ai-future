@@ -1,19 +1,31 @@
 import React from 'react';
-import langchainLogo from '@/assets/langchain-logo.png';
-import pytorchLogo from '@/assets/pytorch-logo.png';
-import tensorflowLogo from '@/assets/tensorflow-logo.png';
-import huggingfaceLogo from '@/assets/huggingface-logo.png';
-import fastapiLogo from '@/assets/fastapi-logo.png';
-import cloudLogo from '@/assets/cloud-logo.png';
+import awsLogo from '@/assets/AWS.png';
+import databricksLogo from '@/assets/Databrick_logo.png';
+import dockerLogo from '@/assets/Docker.png';
+import fastapiLogo from '@/assets/FastAPI.png';
+import powerbiLogo from '@/assets/256px-New_Power_BI_Logo.svg.png';
+import anacondaLogo from '@/assets/Anaconda.png';
+import figmaLogo from '@/assets/Figma.png';
+import gptLogo from '@/assets/gpt.png';
+import mistralLogo from '@/assets/mistral.png';
+import ollamaLogo from '@/assets/ollama-logo-png_seeklogo-593420.png';
+import snowLogo from '@/assets/snow.png';
+import stackoverflowLogo from '@/assets/Stack Overflow.png';
 
 const TechStackSection = () => {
   const technologies = [
-    { name: 'LangChain', logo: langchainLogo },
-    { name: 'PyTorch', logo: pytorchLogo },
-    { name: 'TensorFlow', logo: tensorflowLogo },
-    { name: 'Hugging Face', logo: huggingfaceLogo },
+    { name: 'AWS', logo: awsLogo },
     { name: 'FastAPI', logo: fastapiLogo },
-    { name: 'Cloud', logo: cloudLogo },
+    { name: 'Docker', logo: dockerLogo },
+    { name: 'Power BI', logo: powerbiLogo },
+    { name: 'GPT', logo: gptLogo },
+    { name: 'Mistral', logo: mistralLogo },
+    { name: 'Databricks', logo: databricksLogo },
+    { name: 'Anaconda', logo: anacondaLogo },
+    { name: 'Figma', logo: figmaLogo },
+    { name: 'Ollama', logo: ollamaLogo },
+    { name: 'Snowflake', logo: snowLogo },
+    { name: 'Stack Overflow', logo: stackoverflowLogo },
   ];
 
   // Duplicate the array to create seamless loop
@@ -33,11 +45,7 @@ const TechStackSection = () => {
         </div>
 
         {/* Marquee Container */}
-        <div className="relative overflow-hidden">
-          {/* Gradient masks for smooth edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
-          
+        <div className="relative overflow-hidden w-screen -ml-[50vw] left-1/2">
           {/* Marquee */}
           <div className="flex whitespace-nowrap animate-marquee">
             {duplicatedTechs.map((tech, index) => (
@@ -49,11 +57,8 @@ const TechStackSection = () => {
                   <img
                     src={tech.logo}
                     alt={`${tech.name} logo`}
-                    className="w-16 h-16 md:w-20 md:h-20 object-contain mb-2 filter brightness-90 hover:brightness-110 transition-all duration-300"
+                    className="w-16 h-16 md:w-20 md:h-20 object-contain filter brightness-90 hover:brightness-110 transition-all duration-300"
                   />
-                  <span className="text-sm font-medium text-foreground-muted">
-                    {tech.name}
-                  </span>
                 </div>
               </div>
             ))}
