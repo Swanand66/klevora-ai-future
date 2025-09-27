@@ -15,16 +15,11 @@ const CTASection = () => {
             Stop doing work that a computer could handle. Let's talk about how AI can make your business life easier.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+          <div className="flex justify-center items-center">
             <Button className="btn-primary group px-8 py-4 h-auto">
               <Calendar className="w-4 h-4 mr-2" />
               Book Your Free Meet
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-            </Button>
-            
-            <Button className="btn-secondary px-8 py-4 h-auto">
-              <Mail className="w-4 h-4 mr-2" />
-              Get Custom Quote
             </Button>
           </div>
 
@@ -70,7 +65,7 @@ const CTASection = () => {
 
           <div className="text-center p-4 rounded-xl bg-card border border-card-border hover:border-primary transition-colors duration-300">
             <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
-            <h3 className="font-semibold mb-1 text-sm">Schedule Demo</h3>
+            <h3 className="font-semibold mb-1 text-sm">Schedule Meet</h3>
             <p className="text-foreground-muted text-xs mb-2">See our AI agents in action</p>
             <button className="text-primary hover:text-primary-bright transition-colors text-sm">
               Book Meeting
