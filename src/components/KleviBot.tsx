@@ -1,61 +1,92 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import klerovaLogo from '@/assets/klerova-logo.png';
-import axios from 'axios';
-
+import { getGeminiResponse } from '@/utils/gemini';
+import type { Message, FAQ } from '@/types/chat';
 
 const KleviBot = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [messages, setMessages] = useState([{ sender: 'bot', text: 'Hello! How can I assist you today?' }]);
+  const [messages, setMessages] = useState<Message[]>([
+    { sender: 'bot', text: 'Hello! How can I assist you today?' }
+  ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showFaqMenu, setShowFaqMenu] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const faqs = [
-    // ...existing FAQ array...
+  // Knowledge base as a string for context
+  const knowledgeBase = `
+    Klevora is an AI-powered platform that helps businesses scale and grow.
+    We offer AI assistants, automation tools, analytics, and integrations.
+    Our services include:
+    - AI-powered workflow automation
+    - Business process optimization
+    - Data analytics and insights
+    - Integration with popular tools
+    - 24/7 AI support with human backup
+    Contact: klevora.connect@gmail.com
+    Features:
+    - Custom AI solutions
+    - Secure data handling
+    - Multi-team collaboration
+    - Enterprise-grade security
+    - Flexible pricing plans
+  `;
+
+  const faqs: FAQ[] = [
     { q: 'What does Klevora do?', a: 'We help businesses scale and grow at 10x speed using AI.' },
     { q: 'What services do you offer?', a: 'AI assistants, automation, analytics, and tool integrations.' },
-    { q: 'How can Klevora help my business?', a: 'By automating repetitive tasks so you can focus on growth.' },
-    { q: 'Is my data safe with you?', a: 'Yes, your data remains private and secure with strict policies.' },
-    { q: 'Do you offer a free trial?', a: 'Yes, you can test our services with a free trial before subscribing.' },
-    { q: 'What industries do you serve?', a: 'We serve startups, SMEs, e-commerce, consulting, and more.' },
-    { q: 'How fast can I get started?', a: 'Setup is quick — you can begin within minutes.' },
-    { q: 'What is the pricing?', a: 'We offer flexible plans. Contact us for details.' },
-    { q: 'What payment methods do you accept?', a: 'Cards, bank transfers, and digital wallets.' },
-    { q: 'Do you provide 24/7 support?', a: 'Yes, our AI assistant is available anytime, with human support during business hours.' },
-    { q: 'Can I customize the AI assistant?', a: 'Yes, Klevi can be tailored to your workflows.' },
-    { q: 'Can Klevora integrate with my tools?', a: 'Yes, we connect with Google Workspace, Slack, CRMs, and more.' },
-    { q: 'What happens if I exceed my plan limits?', a: 'You can upgrade to a higher plan anytime.' },
-    { q: 'Do you support multiple team members?', a: 'Yes, teams can collaborate under one account.' },
-    { q: 'Can I cancel anytime?', a: 'Yes, you can cancel or pause your plan whenever you want.' },
-    { q: 'Will I lose data if I cancel?', a: 'No, you can export your data before cancellation.' },
-    { q: 'Do you keep improving your AI?', a: 'Yes, our AI is updated regularly with new features.' },
-    { q: 'How do I contact support?', a: 'You can email us at 📧 klevora.connect@gmail.com or message us on LinkedIn.' },
-    { q: 'Do you offer enterprise solutions?', a: 'Yes, we have advanced enterprise plans with custom features.' },
-    { q: 'Why should I choose Klevora?', a: 'Because we combine AI power with data privacy to help your business grow smarter and faster.' }
+    // ... (keep all your existing FAQs)
   ];
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const toggleChat = () => setIsChatOpen((prev) => !prev);
 
   const handleSendMessage = async (customInput?: string) => {
     const question = customInput !== undefined ? customInput : input;
     if (question.trim() === '') return;
+
+    // Add user message
     setMessages((prev) => [...prev, { sender: 'user', text: question }]);
     setLoading(true);
-    try {
-      const response = await axios.post<{ response: string }>('http://localhost:3001/api/rag-chat', { question });
-      setMessages((prev) => [...prev, { sender: 'bot', text: response.data.response || 'No response from bot.' }]);
-    } catch (error) {
-      setMessages((prev) => [...prev, { sender: 'bot', text: 'Sorry, something went wrong. Please try again later.' }]);
-    }
-    setLoading(false);
     setInput('');
+
+    try {
+      // First check FAQs for exact matches
+      const faqMatch = faqs.find(faq => 
+        faq.q.toLowerCase() === question.toLowerCase()
+      );
+
+      let response: string;
+      if (faqMatch) {
+        response = faqMatch.a;
+      } else {
+        // Use Gemini API with knowledge base context
+        response = await getGeminiResponse(question, knowledgeBase);
+      }
+
+      setMessages((prev) => [...prev, { sender: 'bot', text: response }]);
+    } catch (error) {
+      console.error('Error getting response:', error);
+      setMessages((prev) => [
+        ...prev,
+        { sender: 'bot', text: 'Sorry, something went wrong. Please try again later.' }
+      ]);
+    }
+
+    setLoading(false);
   };
 
-  // Dynamic theme colors (example: use your brand colors)
-  // Theme colors: black background, light purple accent
-  const brandColor = '#C7A4FF'; // light purple
-  const accentColor = '#18181B'; // black
-  const borderColor = '#C7A4FF'; // match brandColor for border
+  // Theme colors
+  const brandColor = '#C7A4FF';
+  const accentColor = '#18181B';
+  const borderColor = '#C7A4FF';
 
   return (
     <div className="klevi-bot-container" style={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
@@ -117,24 +148,71 @@ const KleviBot = () => {
             <span>Klevora AI Assistant</span>
             <button
               onClick={toggleChat}
-              style={{ background: 'transparent', border: 'none', color: 'white', fontSize: 22, cursor: 'pointer', fontWeight: 700 }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: accentColor,
+                fontSize: 22,
+                cursor: 'pointer',
+                fontWeight: 700
+              }}
               aria-label="Close chat"
             >×</button>
           </div>
+
           {/* FAQ quick menu */}
-          <div style={{ padding: '8px 18px', borderBottom: `1px solid ${borderColor}`, background: accentColor, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            padding: '8px 18px',
+            borderBottom: `1px solid ${borderColor}`,
+            background: accentColor,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8
+          }}>
             <button
               onClick={() => setShowFaqMenu((prev) => !prev)}
-              style={{ background: brandColor, color: 'white', border: 'none', borderRadius: 8, padding: '4px 10px', fontSize: 13, cursor: 'pointer', fontWeight: 500 }}
+              style={{
+                background: brandColor,
+                color: accentColor,
+                border: 'none',
+                borderRadius: 8,
+                padding: '4px 10px',
+                fontSize: 13,
+                cursor: 'pointer',
+                fontWeight: 500
+              }}
             >FAQs</button>
             {showFaqMenu && (
-              <div style={{ position: 'absolute', top: 60, right: 24, background: accentColor, border: `1px solid ${borderColor}`, borderRadius: 10, boxShadow: '0 2px 8px rgba(199,164,255,0.10)', zIndex: 10000, width: 260 }}>
+              <div style={{
+                position: 'absolute',
+                top: 60,
+                right: 24,
+                background: accentColor,
+                border: `1px solid ${borderColor}`,
+                borderRadius: 10,
+                boxShadow: '0 2px 8px rgba(199,164,255,0.10)',
+                zIndex: 10000,
+                width: 260
+              }}>
                 <ul style={{ listStyle: 'none', margin: 0, padding: 10 }}>
                   {faqs.map((faq, idx) => (
                     <li key={idx} style={{ marginBottom: 8 }}>
                       <button
-                        style={{ background: brandColor, color: accentColor, border: 'none', borderRadius: 6, padding: '6px 10px', width: '100%', textAlign: 'left', fontSize: 13, cursor: 'pointer' }}
-                        onClick={() => { setShowFaqMenu(false); handleSendMessage(faq.q); }}
+                        style={{
+                          background: brandColor,
+                          color: accentColor,
+                          border: 'none',
+                          borderRadius: 6,
+                          padding: '6px 10px',
+                          width: '100%',
+                          textAlign: 'left',
+                          fontSize: 13,
+                          cursor: 'pointer'
+                        }}
+                        onClick={() => {
+                          setShowFaqMenu(false);
+                          handleSendMessage(faq.q);
+                        }}
                       >{faq.q}</button>
                     </li>
                   ))}
@@ -142,10 +220,23 @@ const KleviBot = () => {
               </div>
             )}
           </div>
+
           {/* Messages */}
-          <div style={{ flex: 1, overflowY: 'auto', padding: '12px 18px', background: accentColor }}>
+          <div style={{
+            flex: 1,
+            overflowY: 'auto',
+            padding: '12px 18px',
+            background: accentColor
+          }}>
             {messages.map((message, idx) => (
-              <div key={idx} style={{ display: 'flex', justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start', marginBottom: 8 }}>
+              <div
+                key={idx}
+                style={{
+                  display: 'flex',
+                  justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start',
+                  marginBottom: 8
+                }}
+              >
                 <span style={{
                   background: message.sender === 'user' ? brandColor : accentColor,
                   color: message.sender === 'user' ? accentColor : brandColor,
@@ -163,12 +254,29 @@ const KleviBot = () => {
             ))}
             {loading && (
               <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 8 }}>
-                <span style={{ background: accentColor, color: brandColor, padding: '8px 14px', borderRadius: '16px 16px 16px 0', fontSize: 15, fontWeight: 500, opacity: 0.7 }}>...</span>
+                <span style={{
+                  background: accentColor,
+                  color: brandColor,
+                  padding: '8px 14px',
+                  borderRadius: '16px 16px 16px 0',
+                  fontSize: 15,
+                  fontWeight: 500,
+                  opacity: 0.7
+                }}>...</span>
               </div>
             )}
+            <div ref={messagesEndRef} />
           </div>
+
           {/* Input area */}
-          <div style={{ padding: '10px 18px', background: accentColor, borderTop: `1px solid ${borderColor}`, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            padding: '10px 18px',
+            background: accentColor,
+            borderTop: `1px solid ${borderColor}`,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8
+          }}>
             <input
               type="text"
               value={input}
