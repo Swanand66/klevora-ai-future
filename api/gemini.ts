@@ -8,6 +8,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const { prompt, context } = req.body;
 
+    if (!prompt) {
+      return res.status(400).json({ error: "Prompt is required" });
+    }
+
     const fullPrompt = `
       You are Klevora's AI assistant. Use the following context to answer questions.
       If the question cannot be answered using the context, use your general knowledge
@@ -24,24 +28,36 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${process.env.GOOGLE_API_KEY}`, // 👈 stored securely
+          Authorization: `Bearer ${process.env.GEMINI_API_KEY}`, // ✅ make sure this matches Vercel dashboard
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          contents: [{ parts: [{ text: fullPrompt }] }],
+          contents: [
+            {
+              role: "user",
+              parts: [{ text: fullPrompt }],
+            },
+          ],
         }),
       }
     );
 
     const data = await response.json();
 
-    if (data?.candidates?.[0]?.content?.parts?.[0]?.text) {
-      return res.status(200).json({ text: data.candidates[0].content.parts[0].text });
+    if (!response.ok) {
+      console.error("Gemini API error:", data);
+      return res.status(response.status).json({ error: "Gemini API failed", details: data });
+    }
+
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (text) {
+      return res.status(200).json({ text });
     }
 
     return res.status(500).json({ error: "No response from Gemini", details: data });
   } catch (err: any) {
-    console.error("Gemini API error:", err);
+    console.error("Server error:", err);
     return res.status(500).json({ error: "Server error", details: err.message });
   }
 }
