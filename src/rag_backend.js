@@ -1,20 +1,23 @@
-
-import express from 'express';
+import dotenv from 'dotenv';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import http from 'http';
 import fs from 'fs';
-import cors from 'cors';
-import axios from 'axios';
 import path from 'path';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+// Load environment variables from .env file
+dotenv.config();
 
+// Initialize the Gemini AI client
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Define path to the knowledge base file
 const KB_PATH = path.resolve(process.cwd(), 'src/rag_knowledge.txt');
 
 /**
- * Retrieves up to two relevant lines from the knowledge base based on keywords in the question.
- * @param {string} question
- * @returns {string}
+ * Retrieves the most relevant line of context from the knowledge base file
+ * based on keywords from the user's question.
+ * @param {string} question The user's question.
+ * @returns {string} A single line of relevant context or an empty string if not found.
  */
 function retrieveContext(question) {
   let kbText = '';
@@ -24,74 +27,108 @@ function retrieveContext(question) {
     console.error('Error reading knowledge base:', e);
     return '';
   }
+
   const keywords = question.toLowerCase().split(/\W+/).filter(w => w.length > 2);
   const kbLines = kbText.split('\n').filter(line => line.trim() !== '');
+
   const relevantChunks = kbLines.filter(line =>
     keywords.some(kw => line.toLowerCase().includes(kw))
   );
-  return relevantChunks.length > 0 ? relevantChunks.slice(0, 2).join('\n') : '';
+
+  // Return the single most relevant line as context.
+  return relevantChunks.length > 0 ? relevantChunks[0] : '';
 }
 
 /**
- * Generates the prompt for the AI model.
- * @param {string} context
- * @param {string} question
- * @returns {string}
+ * Handles incoming HTTP requests, routes them, and sends back responses.
+ * @param {http.IncomingMessage} req The request object.
+ * @param {http.ServerResponse} res The response object.
  */
-function buildPrompt(context, question) {
-  return `You are a professional, friendly AI assistant for Klevora.
-Your primary goal is to answer user questions based *only* on the information provided in the "<Context>" section.
+const requestHandler = async (req, res) => {
+  // --- CORS Headers ---
+  // Set headers to allow cross-origin requests (CORS)
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow any origin
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-**Instructions:**
-1. Carefully read the "<Context>" and the "<UserQuestion>".
-2. Formulate a direct and helpful answer using *only* the provided context.
-3. Do not use any external knowledge or make up information.
-4. If the context does not contain the answer, you must respond *only* with: "I'm sorry, I don't have information on that."
-5. Keep the answer clear and to the point.
-
-<Context>
-${context || 'No information available.'}
-</Context>
-
-<UserQuestion>
-${question}
-</UserQuestion>
-
-Answer:`;
-}
-
-app.post('/api/rag-chat', async (req, res) => {
-  const { question } = req.body;
-  if (!question || typeof question !== 'string' || !question.trim()) {
-    return res.status(400).json({ error: 'Question must be a non-empty string.' });
+  // Handle pre-flight CORS requests
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204); // No Content
+    res.end();
+    return;
   }
 
-  // Direct answer for email queries
-  if (/\bemail\b/i.test(question)) {
-    return res.json({ response: 'klevora.connect@gmail.com' });
-  }
-
-  const context = retrieveContext(question);
-  const fullPrompt = buildPrompt(context, question);
-
-  try {
-    const ollamaRes = await axios.post('http://localhost:11434/api/generate', {
-      model: 'mistral',
-      prompt: fullPrompt,
-      stream: false,
-      options: {
-        num_predict: 128,
-      },
+  // --- API Routing ---
+  if (req.url === '/api/rag-chat' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString(); // accumulate request body
     });
-    const cleanResponse = ollamaRes.data.response ? ollamaRes.data.response.trim() : 'No response from bot.';
-    res.json({ response: cleanResponse });
-  } catch (err) {
-    console.error('Error contacting Ollama backend:', err.message);
-    res.status(500).json({ error: 'An error occurred with the AI backend.' });
-  }
-});
 
+    req.on('end', async () => {
+      try {
+        const { question } = JSON.parse(body);
+
+        if (!question || typeof question !== 'string') {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Missing or invalid "question" field' }));
+          return;
+        }
+
+        // --- Hardcoded Logic ---
+        // Direct answer for email queries
+        if (/\bemail\b/i.test(question)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ response: 'klevora.connect@gmail.com' }));
+            return;
+        }
+        // Direct answer for pricing queries
+        if (/\b(pricing|price|cost|plans|how much)\b/i.test(question)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ response: 'For detailed pricing information, please contact our sales team.' }));
+            return;
+        }
+
+        // --- RAG and AI Logic ---
+        const context = retrieveContext(question);
+
+        const fullPrompt = `Based on the context, answer the user's question in one single, concise sentence.
+Your entire response must not exceed one line.
+
+Context: "${context || 'No context available'}"
+Question: "${question}"
+
+Answer (one sentence):`;
+        
+        // Use Gemini API for generation
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const result = await model.generateContent(fullPrompt);
+        const geminiRes = result.response;
+        let cleanResponse = geminiRes.text() ? geminiRes.text().trim() : 'No response from Gemini.';
+        
+        // Guarantee a single-line limit
+        const finalResponse = cleanResponse.split('\n')[0];
+
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ response: finalResponse }));
+
+      } catch (err) {
+        console.error('Error processing request:', err.message);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'An internal server error occurred.' }));
+      }
+    });
+  } else {
+    // Handle 404 Not Found for any other routes
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Not Found' }));
+  }
+};
+
+// Create and start the HTTP server
+const server = http.createServer(requestHandler);
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`RAG backend running on port ${PORT}`);
+
+server.listen(PORT, () => {
+  console.log(`RAG backend (native HTTP) running on port ${PORT}`);
 });
