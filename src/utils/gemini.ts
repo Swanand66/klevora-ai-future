@@ -8,7 +8,7 @@ export async function getGeminiResponse(
   context: string
 ): Promise<string> {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash-lite" });
     
     const fullPrompt = `
       You are Klevora's AI assistant. Use the following context to answer questions.
