@@ -30,24 +30,31 @@
 //   }
 // }
 // gemini.ts
-export async function getGeminiResponse(prompt: string, context: string): Promise<string> {
+// src/utils/gemini.ts
+
+export async function getGeminiResponse(prompt: string, context: string) {
   try {
-    const res = await fetch("/api/gemini", {
+    const resp = await fetch("/api/gemini", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ prompt, context }),
     });
 
-    const data = await res.json();
-
-    if (data.text) {
-      return data.text;
-    } else {
-      console.error("Gemini API Error:", data);
-      return "⚠️ No response from Gemini.";
+    if (!resp.ok) {
+      throw new Error(`API error: ${resp.status}`);
     }
-  } catch (error) {
-    console.error("Gemini API Error:", error);
-    return "I apologize, but I'm having trouble connecting. Please try again later.";
+
+    const data = await resp.json();
+
+    // Safely extract Gemini response text
+    return (
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "⚠️ Sorry, I couldn’t generate a response."
+    );
+  } catch (err) {
+    console.error("Gemini API Error:", err);
+    return "⚠️ Sorry I am unable to connect with out AI.";
   }
 }
