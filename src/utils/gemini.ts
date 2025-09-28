@@ -48,13 +48,10 @@ export async function getGeminiResponse(prompt: string, context: string) {
 
     const data = await resp.json();
 
-    // Safely extract Gemini response text
-    return (
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "⚠️ Sorry, I couldn’t generate a response."
-    );
+    // ✅ Match your serverless function response
+    return data.text || "⚠️ Sorry, I couldn’t generate a response.";
   } catch (err) {
     console.error("Gemini API Error:", err);
-    return "⚠️ Sorry I am unable to connect with out AI.";
+    return "⚠️ Sorry I am unable to connect with our AI.";
   }
 }
