@@ -21,7 +21,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // ✅ Use API key as query param instead of Bearer
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -109,4 +109,5 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 //     return res.status(500).json({ error: "Server error", details: err.message });
 //   }
 // }
+
 
