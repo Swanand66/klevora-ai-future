@@ -1,24 +1,23 @@
 import dotenv from 'dotenv';
-dotenv.config();
-// Gemini API integration
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-import express from 'express';
+import http from 'http';
 import fs from 'fs';
-import cors from 'cors';
-import axios from 'axios';
 import path from 'path';
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+// Load environment variables from .env file
+dotenv.config();
 
+// Initialize the Gemini AI client
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+// Define path to the knowledge base file
 const KB_PATH = path.resolve(process.cwd(), 'src/rag_knowledge.txt');
 
 /**
- * FIXED: This function now retrieves the full, complete line of context.
- * This is crucial for providing the AI with the correct information to form an answer.
+ * Retrieves the most relevant line of context from the knowledge base file
+ * based on keywords from the user's question.
+ * @param {string} question The user's question.
+ * @returns {string} A single line of relevant context or an empty string if not found.
  */
 function retrieveContext(question) {
   let kbText = '';
@@ -36,61 +35,100 @@ function retrieveContext(question) {
     keywords.some(kw => line.toLowerCase().includes(kw))
   );
 
-  if (relevantChunks.length > 0) {
-    // Return the single most relevant line as context.
-    return relevantChunks[0];
-  }
-
-  return '';
+  // Return the single most relevant line as context.
+  return relevantChunks.length > 0 ? relevantChunks[0] : '';
 }
 
-app.post('/api/rag-chat', async (req, res) => {
-  const { question } = req.body;
-  if (!question || typeof question !== 'string') {
-    return res.status(400).json({ error: 'Missing question' });
+/**
+ * Handles incoming HTTP requests, routes them, and sends back responses.
+ * @param {http.IncomingMessage} req The request object.
+ * @param {http.ServerResponse} res The response object.
+ */
+const requestHandler = async (req, res) => {
+  // --- CORS Headers ---
+  // Set headers to allow cross-origin requests (CORS)
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Allow any origin
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // Handle pre-flight CORS requests
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204); // No Content
+    res.end();
+    return;
   }
 
-  const context = retrieveContext(question);
+  // --- API Routing ---
+  if (req.url === '/api/rag-chat' && req.method === 'POST') {
+    let body = '';
+    req.on('data', chunk => {
+      body += chunk.toString(); // accumulate request body
+    });
 
-  // Direct answer for email queries
-  if (/\bemail\b/i.test(question)) {
-    return res.json({ response: 'klevora.connect@gmail.com' });
-  }
-  // Direct answer for pricing queries - expanded keywords and shorter response
-  if (/\b(pricing|price|cost|plans|how much)\b/i.test(question)) {
-    return res.json({ response: 'For detailed pricing information, please contact our sales team.' });
-  }
+    req.on('end', async () => {
+      try {
+        const { question } = JSON.parse(body);
 
-  /**
-   * IMPROVEMENT 1: A more directive prompt that enforces a single, concise sentence limit.
-   * This is the primary method for controlling the output format.
-   */
-  const fullPrompt = `Based on the context, answer the user's question in one single, concise sentence.
+        if (!question || typeof question !== 'string') {
+          res.writeHead(400, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Missing or invalid "question" field' }));
+          return;
+        }
+
+        // --- Hardcoded Logic ---
+        // Direct answer for email queries
+        if (/\bemail\b/i.test(question)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ response: 'klevora.connect@gmail.com' }));
+            return;
+        }
+        // Direct answer for pricing queries
+        if (/\b(pricing|price|cost|plans|how much)\b/i.test(question)) {
+            res.writeHead(200, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ response: 'For detailed pricing information, please contact our sales team.' }));
+            return;
+        }
+
+        // --- RAG and AI Logic ---
+        const context = retrieveContext(question);
+
+        const fullPrompt = `Based on the context, answer the user's question in one single, concise sentence.
 Your entire response must not exceed one line.
 
 Context: "${context || 'No context available'}"
 Question: "${question}"
 
 Answer (one sentence):`;
+        
+        // Use Gemini API for generation
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        const result = await model.generateContent(fullPrompt);
+        const geminiRes = result.response;
+        let cleanResponse = geminiRes.text() ? geminiRes.text().trim() : 'No response from Gemini.';
+        
+        // Guarantee a single-line limit
+        const finalResponse = cleanResponse.split('\n')[0];
 
-  try {
-    // Use Gemini API for generation
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-    const result = await model.generateContent(fullPrompt);
-    const geminiRes = result.response;
-    let cleanResponse = geminiRes.text() ? geminiRes.text().trim() : 'No response from Gemini.';
-    // Guarantee a single-line limit
-    const responseLines = cleanResponse.split('\n');
-    const finalResponse = responseLines.slice(0, 1).join('\n');
-    res.json({ response: finalResponse });
-  } catch (err) {
-    console.error('Error contacting Gemini backend:', err.message);
-    res.status(500).json({ error: 'Gemini backend error' });
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ response: finalResponse }));
+
+      } catch (err) {
+        console.error('Error processing request:', err.message);
+        res.writeHead(500, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'An internal server error occurred.' }));
+      }
+    });
+  } else {
+    // Handle 404 Not Found for any other routes
+    res.writeHead(404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: 'Not Found' }));
   }
-});
+};
 
+// Create and start the HTTP server
+const server = http.createServer(requestHandler);
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`RAG backend running on port ${PORT}`);
-});
 
+server.listen(PORT, () => {
+  console.log(`RAG backend (native HTTP) running on port ${PORT}`);
+});
