@@ -124,11 +124,3 @@ Answer (one sentence):`;
     res.end(JSON.stringify({ error: 'Not Found' }));
   }
 };
-
-// Create and start the HTTP server
-const server = http.createServer(requestHandler);
-const PORT = process.env.PORT || 3001;
-
-server.listen(PORT, () => {
-  console.log(`RAG backend (native HTTP) running on port ${PORT}`);
-});
