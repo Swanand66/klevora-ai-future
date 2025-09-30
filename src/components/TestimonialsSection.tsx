@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
-import avatar1 from '@/assets/testimonial-avatar-1.png';
-import avatar2 from '@/assets/testimonial-avatar-2.png';
+import avatar1 from '@/assets/1North.jpg';
+import avatar2 from '@/assets/PES.png';
 import avatar3 from '@/assets/testimonial-avatar-3.png';
 
 const TestimonialsSection = () => {
   const testimonials = [
     {
-      quote: "Our hiring used to be a nightmare - weeks of sorting through resumes and scheduling interviews. Now it's automated and we actually find better candidates faster.",
-      name: "Sarah Chen",
-      title: "CEO, TechFlow Solutions",
+      quote: "Managing customer communication used to be a constant struggle missed reminders, delayed follow-ups, and dropped conversations. With Klevora’s automation agent, everything runs seamlessly. From sending insurance updates to important reminders, we keep customers engaged and in the loop without lifting a finger.",
+      name: "1North",
+      title: "INDIA",
       avatar: avatar1,
       rating: 5
     },
     {
-      quote: "I used to spend hours every week on financial reports. Now I get better insights in minutes, and my accountant actually has time to help me grow the business.",
-      name: "Michael Rodriguez", 
-      title: "CFO, GrowthCorp Industries",
+      quote: "Our team was buried in repetitive work endless data entry, manual reports, and scheduling tasks that drained our time. With Klevora’s automation, we’ve cut the busywork and boosted efficiency. On top of that, the AI-powered analytics give us clear insights and predictions, helping us make smarter, faster decisions.",
+      name: "Prathamesh Energy Solution",
+      title: "INDIA",
       avatar: avatar2,
       rating: 5
     },
