@@ -113,13 +113,13 @@ const Header = () => {
                 onClick={() => scrollToSection('technology')}
                 className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
               >
-                Technology
+                Technologies
               </button>
               <button 
                 onClick={() => scrollToSection('testimonials')}
                 className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
               >
-                Testimonials
+                Highlights
               </button>
               <Button 
                 onClick={() => scrollToSection('contact')}
