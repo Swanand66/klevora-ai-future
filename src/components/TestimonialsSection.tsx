@@ -53,7 +53,7 @@ const TestimonialsSection = () => {
         {/* Section Title */}
         <div className="text-center mb-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            What Our Clients Say
+            Hear From Our Users
           </h2>
           <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
             Real people, real businesses, real results. Here's what happens when you upgrade to AI.
