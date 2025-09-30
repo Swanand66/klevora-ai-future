@@ -10,7 +10,7 @@ import { inject } from "@vercel/analytics"
 
 const queryClient = new QueryClient();
 
-inject() /* added for vercel analytics */
+inject(); /* added for vercel analytics */
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
