@@ -15,27 +15,44 @@ const KleviBot = () => {
 
   // Knowledge base as a string for context
   const knowledgeBase = `
-    Klevora is an AI-powered platform that helps businesses scale and grow.
-    We offer AI assistants, automation tools, analytics, and integrations.
-    Our services include:
-    - AI-powered workflow automation
-    - Business process optimization
-    - Data analytics and insights
-    - Integration with popular tools
-    - 24/7 AI support with human backup
-    Contact: klevora.connect@gmail.com
-    Features:
-    - Custom AI solutions
-    - Secure data handling
-    - Multi-team collaboration
-    - Enterprise-grade security
-    - Flexible pricing plans
+  Klevora is a cutting-edge AI solutions startup that helps businesses grow faster using artificial intelligence and automation.
+  
+  Hi?Hey its your klevora
+  What does Klevora do? Klevora helps businesses scale and grow using AI and automation.
+  What services do you offer? We offer AI assistants, automation, analytics, and integrations.
+  How can Klevora help my business? We automate tasks so you can focus on growth.
+  Is my data safe with you? Yes, your data is private and secure.
+  Do you offer a free trial? Yes, free trials are available.
+  What industries do you serve? We support startups, SMEs, e-commerce, and consulting.
+  How fast can I get started? You can start within minutes.
+  What is the pricing? Plans are flexible; contact us for details.
+  What payment methods do you accept? We accept cards, bank transfers, and digital wallets.
+  Do you provide 24/7 support? Yes, our AI assistant is always available.
+  Can I customize the AI assistant? Yes, Klevi can be customized to your needs.
+  Can Klevora integrate with my tools? Yes, we integrate with Google Workspace, Slack, and CRMs.
+  What happens if I exceed my plan limits? You can upgrade to a higher plan.
+  Do you support multiple team members? Yes, teams can work under one account.
+  Can I cancel anytime? Yes, you can cancel or pause anytime.
+  Will I lose data if I cancel? No, you can export your data before canceling.
+  Do you keep improving your AI? Yes, we update and improve regularly.
+  How do I contact support? You can email klevora.connect@gmail.com or message us on LinkedIn.
+  what is your linkedin?https://www.linkedin.com/company/klevora-in
+  Do you offer enterprise solutions? Yes, we provide custom enterprise plans.
+  Why should I choose Klevora? We combine AI power with strong data privacy.
+  What types of agents do you offer? We offer specialized agents including HR, Finance, Customer Service, Sales, and Operational agents.
+  How can I schedule a meeting? To schedule a meeting, please use the button located at the bottom of the page.
   `;
 
   const faqs: FAQ[] = [
     { q: 'What does Klevora do?', a: 'We help businesses scale and grow at 10x speed using AI.' },
     { q: 'What services do you offer?', a: 'AI assistants, automation, analytics, and tool integrations.' },
-    // ... (keep all your existing FAQs)
+    { q: 'How can Klevora help my business?', a: 'We automate tasks so you can focus on growth.' },
+    { q: 'Is my data safe with you?', a: 'Yes, your data is private and secure.' },
+    { q: 'Do you offer a free trial?', a: 'Yes, free trials are available.' },
+    { q: 'What is the pricing?', a: 'Plans are flexible; contact us for details.' },
+    { q: 'Do you provide 24/7 support?', a: 'Yes, our AI assistant is always available.' },
+    { q: 'Can Klevora integrate with my tools?', a: 'Yes, we integrate with Google Workspace, Slack, and CRMs.' },
+    { q: 'How can I schedule a meeting?', a: 'To schedule a meeting, please use the button located at the bottom of the page.' },
   ];
 
   useEffect(() => {
