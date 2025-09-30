@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import KleviBot from "./components/KleviBot";
-import { inject } from "@vercel/analytics/react"
+import { inject } from "@vercel/analytics"
 
 const queryClient = new QueryClient();
 
