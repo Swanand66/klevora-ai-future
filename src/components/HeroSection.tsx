@@ -40,7 +40,7 @@ const HeroSection = () => {
     <section className="relative min-h-screen flex flex-col items-center justify-center px-6 lg:px-8 z-10">
       {/* Background handled globally by AnimatedBackground */}
 
-      <div className="text-center relative z-10 flex flex-col items-center justify-center" style={{ marginTop: '8rem' }}>
+      <div className="text-center relative z-10 flex flex-col items-center justify-center" style={{ marginTop: '9rem' }}>
         {/* Main Headline */}
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
           <span className="text-gradient block mb-4">Klevora</span>
@@ -56,7 +56,7 @@ const HeroSection = () => {
         </p>
 
         {/* Spacer */}
-        <div style={{ marginTop: '10rem' }}></div>
+        <div style={{ marginTop: '9rem' }}></div>
 
         {/* Video and Description */}
         <div className="flex flex-col md:flex-row items-center justify-between mt-16">
