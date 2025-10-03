@@ -4,7 +4,7 @@ import { PhoneOutgoing, Calculator, BarChart3, Glasses } from 'lucide-react';
 const AITeamSection = () => {
   const agents = [
     {
-      icon: 'PhoneOutgoing',
+      icon: PhoneOutgoing,
       title: 'AI Voice Agent',
       description: 'Give your brand a voice. This AI handles calls, answers queries, and provides 24/7 support with natural, human-like conversation.',
       features: ['Customer Support Calls', 'Appointment Booking', 'Lead Qualification']
