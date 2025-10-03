@@ -1,13 +1,14 @@
 import React from 'react';
-import { Users, Calculator, BarChart3, Cog } from 'lucide-react';
+import {phone-outgoing , Calculator, BarChart3, hat-glasses } from 'lucide-react';
 
 const AITeamSection = () => {
   const agents = [
     {
-      icon: Users,
-      title: 'HR Assistant',
-      description: "Stop drowning in resumes and interview scheduling. This AI finds the right people faster and handles all the paperwork.",
-      features: ['Resume Screening', 'Interview Scheduling', 'Employee Onboarding']
+      icon: 'phone-outgoing',
+      title: 'AI Voice Agent',
+      description: 'Give your brand a voice. This AI handles calls, answers queries, and provides 24/7 support with natural, human-like conversation.',
+      features: ['Customer Support Calls', 'Appointment Booking', 'Lead Qualification']
+
     },
     {
       icon: Calculator,
@@ -22,10 +23,10 @@ const AITeamSection = () => {
       features: ['KPI Tracking', 'Trend Analysis', 'Performance Reports']
     },
     {
-      icon: Cog,
-      title: 'Operations Manager',
-      description: "Turn chaos into smooth operations. Automate the daily grind so your team can focus on the big picture.",
-      features: ['Workflow Automation', 'Resource Management', 'Task Optimization']
+      icon: hat-glasses,
+      title: 'Customer Support Agent',
+      description: "An intelligent customer support agent designed to provide instant, 24/7 assistance. It can handle FAQs, troubleshoot issues, guide users through processes, and escalate complex queries when needed.",
+      features: ['Handle FAQs', 'Troubleshoot Issues', 'Escalate', 'Guide Users']
     }
   ];
 
