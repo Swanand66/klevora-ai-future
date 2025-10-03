@@ -1,5 +1,5 @@
 import React from 'react';
-import {phone-outgoing , Calculator, BarChart3, hat-glasses } from 'lucide-react';
+import { PhoneOutgoing, Calculator, BarChart3, Glasses } from 'lucide-react';
 
 const AITeamSection = () => {
   const agents = [
