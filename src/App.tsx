@@ -7,12 +7,12 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import KleviBot from "./components/KleviBot";
 import { inject } from "@vercel/analytics"
-import { injectSpeedInsights } from '@vercel/speed-insights';
+
 
 const queryClient = new QueryClient();
 
 inject(); /* added for vercel analytics */
-injectSpeedInsights();
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
