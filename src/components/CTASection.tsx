@@ -1,92 +1,104 @@
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Mail, Linkedin } from 'lucide-react';
+import React from "react";
+import ContactForm from "@/components/ContactForm";
+import { Linkedin, Twitter, Instagram } from "lucide-react";
 
-const CTASection = () => {
+const CTASection  = () => {
+  const scrollToForm = () => {
+    document.getElementById("contact-form")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section id="contact" className="relative py-12 px-6 lg:px-8 z-30">
-      <div className="max-w-3xl mx-auto">
-        {/* Main CTA Block */}
-        <div className="card-glow text-center mb-10 relative z-40">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Ready to Get Klever?
-          </h2>
-          <p className="text-lg text-foreground-muted mb-6 max-w-xl mx-auto leading-relaxed">
-            Stop doing work that a computer could handle. Let's talk about how AI can make your business life easier.
-          </p>
-          
-          <div className="flex justify-center items-center relative z-20">
-            <a 
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfipqB176GFhkG3gCRtQCiTY4zltTVIuPUnlNE-oYv-LGBTrQ/viewform?usp=header" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-block cursor-pointer"
-              style={{ pointerEvents: 'auto' }}
-            >
-              <Button className="btn-primary group px-8 py-4 h-auto cursor-pointer">
-                <Calendar className="w-4 h-4 mr-2" />
-                Connect with the team
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </a>
-          </div>
+      <>
+      {/* Contact Form */}
+      <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            <div className="lg:col-span-2">
+              <h2 className="text-3xl font-bold mb-2">Ready to Get Klever?</h2>
+              <p className="text-foreground-muted mb-6">
+                Stop doing work that a computer could handle. Let's talk about how AI can make your business life easier.
+              </p>
 
-          {/* Trust Indicators */}
-          <div className="mt-8 pt-6 border-t border-border">
-            <p className="text-sm text-foreground-muted mb-3">Join 10+ businesses already working smarter</p>
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 text-sm text-foreground-muted">
-              <div className="flex items-center">
-                <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                Free chat to see if we're a fit
+              {/* Connect CTA */}
+              <div className="mb-6">
+                
+                <p className="text-sm text-foreground-muted mt-2">Join 10+ businesses already working smarter</p>
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                No pressure, no commitments
+
+              {/* Quick reassurance bullets */}
+              <ul className="space-y-2 text-sm text-foreground-muted mb-8" style={{ color: "#00e43de3" }}>
+                <li>• Free chat to see if we're a fit</li>
+                <li>• No pressure, no commitments</li>
+                <li>• Honest advice about what you need</li>
+              </ul>
+
+              {/* Social/Email/Schedule blocks */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <div className="font-semibold mb-1 ">LinkedIn</div>
+                  <p className="text-sm text-foreground-muted mb-2">Connect with us on LinkedIn</p>
+                  <a
+                    href="https://www.linkedin.com/company/klevora-in/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline "
+                    aria-label="Open LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5 " />
+                    <span className="bg-gradient-to-r from-[hsl(280_85%_55%)] to-[hsl(320_95%_62%)] bg-clip-text text-transparent">
+                      Linkedin
+                    </span>
+                  </a>
+                </div>
+                <div>
+                  <div className="font-semibold mb-1">Twitter(X)</div>
+                  <p className="text-sm text-foreground-muted mb-2">Connect with us on Twitter</p>
+                  <a
+                    href="https://x.com/Team_Klevora"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                    aria-label="Open Twitter"
+                  >
+                    <Twitter className="w-5 h-5" />
+                    <span className="bg-gradient-to-r from-[hsl(280_85%_55%)] to-[hsl(320_95%_62%)] bg-clip-text text-transparent">
+                      Twitter
+                    </span>
+                  </a>
+                </div>
+                <div>
+                  <div className="font-semibold mb-1">Instagram</div>
+                  <p className="text-sm text-foreground-muted mb-2">Connect with us on Instagram</p>
+                  <a
+                    href="https://www.instagram.com/klevora_global?igsh=MXFpbWoyczF1OWZybg=="
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-primary hover:underline"
+                    aria-label="Open Instagram"
+                  >
+                    <Instagram className="w-5 h-5" />
+                    <span className="bg-gradient-to-r from-[hsl(280_85%_55%)] to-[hsl(320_95%_62%)] bg-clip-text text-transparent">
+                    Instagram
+                    </span>
+                  </a>
+                </div>
+
+              
+                <div>
+                  <div className="font-semibold mb-1">Email Us</div>
+                  <p className="text-sm text-foreground-muted">Get detailed information and pricing</p>
+                  <a href="mailto:klevora.connect@gmail.com" className="text-primary hover:underline bg-gradient-to-r from-[hsl(280_85%_55%)] to-[hsl(320_95%_62%)] bg-clip-text text-transparent">klevora.connect@gmail.com</a>
+                </div>
+
               </div>
-              <div className="flex items-center">
-                <div className="w-2 h-2 rounded-full bg-success mr-2" />
-                Honest advice about what you need
-              </div>
+            </div>
+            <div id="contact-form" className="lg:col-span-3">
+              <ContactForm />
             </div>
           </div>
         </div>
-
-        {/* Contact Options */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="text-center p-4 rounded-xl bg-card border border-card-border hover:border-primary transition-colors duration-300">
-            <Linkedin className="w-6 h-6 text-primary mx-auto mb-2" />
-            <h3 className="font-semibold mb-1 text-sm">LinkedIn</h3>
-            <p className="text-foreground-muted text-xs mb-2">Connect with us on LinkedIn</p>
-            <a href="https://www.linkedin.com/company/klevora-in/" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-primary-bright transition-colors text-sm">
-              Follow Us
-            </a>
-          </div>
-
-          <div className="text-center p-4 rounded-xl bg-card border border-card-border hover:border-primary transition-colors duration-300">
-            <Mail className="w-6 h-6 text-primary mx-auto mb-2" />
-            <h3 className="font-semibold mb-1 text-sm">Email Us</h3>
-            <p className="text-foreground-muted text-xs mb-2">Get detailed information and pricing</p>
-            <a href="mailto:klevora.connect@gmail.com" className="text-primary hover:text-primary-bright transition-colors text-sm">
-              klevora.connect@gmail.com
-            </a>
-          </div>
-
-          <div className="text-center p-4 rounded-xl bg-card border border-card-border hover:border-primary transition-colors duration-300">
-              <Calendar className="w-6 h-6 text-primary mx-auto mb-2" />
-              <h3 className="font-semibold mb-1 text-sm">Schedule Meet</h3>
-              <p className="text-foreground-muted text-xs mb-2">See our AI agents in action</p>
-              <a
-                href="https://calendar.app.google/b8pHAUmKzqDH3ZYb7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary hover:text-primary-bright transition-colors text-sm"
-              >
-                Book Meeting
-              </a>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+      </>
   );
 };
 

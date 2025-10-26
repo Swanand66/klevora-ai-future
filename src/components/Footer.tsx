@@ -1,5 +1,7 @@
 import React from 'react';
 import klerovaLogo from '@/assets/klerova-logo.png';
+import { Linkedin, Twitter, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -30,13 +32,26 @@ const Footer = () => {
             >
               Terms of Service
             </a>
-            <a 
-              href="mailto:hello@klevora.ai" 
+            <Link 
+              to="/contact" 
               className="text-foreground-muted hover:text-primary transition-colors duration-300 text-sm"
             >
-              Contact
-            </a>
+              Contact Us
+            </Link>
           </div>
+        </div>
+
+        {/* Social */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <a href="https://www.linkedin.com/company/klevora-in/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-foreground-muted hover:text-primary">
+            <Linkedin className="w-5 h-5" />
+          </a>
+          <a href="https://x.com/Team_Klevora" target="_blank" rel="noopener noreferrer" aria-label="Twitter" className="text-foreground-muted hover:text-primary">
+            <Twitter className="w-5 h-5" />
+          </a>
+          <a href="https://www.instagram.com/klevora_global?igsh=MXFpbWoyczF1OWZybg==" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-foreground-muted hover:text-primary">
+            <Instagram className="w-5 h-5" />
+          </a>
         </div>
 
         {/* Copyright */}

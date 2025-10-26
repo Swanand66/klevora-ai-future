@@ -8,7 +8,7 @@ const AnimatedBackground = () => {
       
       {/* Additional particle layers */}
       <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 12 }, (_, i) => (
+        {Array.from({ length: 30 }, (_, i) => (
           <div
             key={i}
             className="absolute w-4 h-4 bg-primary rounded-full opacity-60"

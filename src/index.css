@@ -2,62 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Klevora Design System - Futuristic Dark Theme with Neon Purple */
+/* Klevora Design System - Light Theme with Neon Purple Accents */
 
 @layer base {
   :root {
-    /* Core Dark Theme */
-    --background: 220 15% 4%;
-    --background-subtle: 220 15% 6%;
-    --foreground: 0 0% 95%;
-    --foreground-muted: 0 0% 70%;
+    /* Core Light Theme */
+    --background: 0 0% 100%;           /* white */
+    --background-subtle: 0 0% 98%;      /* near-white */
+    --foreground: 0 0% 10%;             /* near-black text */
+    --foreground-muted: 0 0% 45%;       /* muted text */
 
-    /* Neon Purple Theme */
-    --primary: 270 100% 70%;
-    --primary-bright: 270 100% 80%;
-    --primary-dark: 270 80% 50%;
-    --primary-foreground: 220 15% 4%;
+    /* Neon Purple-to-Pink Gradient Accents */
+    --primary: 280 85% 55%;
+    --primary-bright: 320 95% 62%;
+    --primary-dark: 270 70% 45%;
+    --primary-foreground: 0 0% 100%;    /* text on gradient = white */
 
     /* Card and Surface Colors */
-    --card: 220 15% 8%;
-    --card-foreground: 0 0% 95%;
-    --card-border: 220 15% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    --card-border: 0 0% 90%;
 
     /* Interactive Elements */
-    --popover: 220 15% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
 
-    --secondary: 220 15% 12%;
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 220 15% 10%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 0 0% 95%;
+    --muted-foreground: 0 0% 40%;
 
-    --accent: 270 100% 70%;
-    --accent-foreground: 220 15% 4%;
+    --accent: 280 85% 55%;
+    --accent-foreground: 0 0% 100%;
 
     /* Form Elements */
-    --input: 220 15% 12%;
-    --input-border: 220 15% 20%;
-    --ring: 270 100% 70%;
+    --input: 0 0% 100%;
+    --input-border: 0 0% 85%;
+    --ring: 300 95% 62%;
 
     /* Status Colors */
-    --destructive: 0 85% 60%;
-    --destructive-foreground: 0 0% 95%;
+    --destructive: 0 75% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 0 0% 95%;
+    --success: 142 60% 45%;
+    --success-foreground: 0 0% 100%;
 
     --warning: 38 92% 50%;
-    --warning-foreground: 220 15% 4%;
+    --warning-foreground: 0 0% 10%;
 
     /* Border and Visual Elements */
-    --border: 220 15% 15%;
-    --border-muted: 220 15% 12%;
+    --border: 0 0% 90%;
+    --border-muted: 0 0% 93%;
 
     /* Glow Effects */
-    --glow-primary: 270 100% 70%;
-    --glow-secondary: 270 80% 60%;
+    --glow-primary: 300 95% 62%;
+    --glow-secondary: 290 80% 60%;
 
     /* Animation Variables */
     --wave-speed: 20s;
@@ -65,7 +65,7 @@
     --glow-speed: 3s;
 
     /* Typography */
-    --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-family-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
 
     /* Spacing and Sizing */
     --radius: 0.75rem;
@@ -73,16 +73,16 @@
     --radius-xl: 1.5rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-bright)) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%);
     --gradient-dark: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background-subtle)) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(var(--primary) / 0.3) 0%, transparent 70%);
+    --gradient-glow: radial-gradient(ellipse at center, hsl(300 95% 62% / 0.3) 0%, transparent 70%);
 
     /* Shadows */
-    --shadow-sm: 0 1px 2px 0 hsl(220 15% 2% / 0.5);
-    --shadow-md: 0 4px 6px -1px hsl(220 15% 2% / 0.5), 0 2px 4px -1px hsl(220 15% 2% / 0.3);
-    --shadow-lg: 0 10px 15px -3px hsl(220 15% 2% / 0.5), 0 4px 6px -2px hsl(220 15% 2% / 0.3);
-    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.5);
-    --shadow-glow-strong: 0 0 40px hsl(var(--primary) / 0.7);
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.05);
+    --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.08), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.08);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.35);
+    --shadow-glow-strong: 0 0 40px hsl(var(--primary) / 0.5);
   }
 }
 
@@ -93,6 +93,7 @@
 
   body {
     @apply bg-background text-foreground font-primary;
+    font-weight: 700;
   }
 }
 
@@ -198,11 +199,22 @@
 
   /* Button Variants */
   .btn-primary {
-    @apply bg-primary hover:bg-primary-bright text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 glow-primary hover:glow-strong;
+    background: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%);
+    @apply hover:opacity-90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 glow-primary hover:glow-strong;
   }
 
   .btn-secondary {
-    @apply bg-transparent border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 glow-border;
+    @apply bg-transparent border-2 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 glow-border;
+    border-image: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%) 1;
+    background: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .btn-secondary:hover {
+    background: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%);
+    -webkit-text-fill-color: white;
   }
 
   /* Card Components */
@@ -235,7 +247,7 @@
     height: 2px;
     bottom: -4px;
     left: 50%;
-    background: hsl(var(--primary));
+    background: linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%);
     transition: all 0.3s ease;
     transform: translateX(-50%);
   }

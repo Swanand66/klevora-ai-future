@@ -1,36 +1,35 @@
-import React from 'react';
-import AnimatedBackground from '@/components/AnimatedBackground';
-import Header from '@/components/Header';
+import React, { useState } from 'react';
+import Layout from '@/components/Layout';
+import SplashIntro from '@/components/SplashIntro';
 import HeroSection from '@/components/HeroSection';
 import TechStackSection from '@/components/TechStackSection';
 import AITeamSection from '@/components/AITeamSection';
 import ProcessSection from '@/components/ProcessSection';
 import TestimonialsSection from '@/components/TestimonialsSection';
 import CTASection from '@/components/CTASection';
-import Footer from '@/components/Footer';
 
 const Index = () => {
+  const [revealed, setRevealed] = useState(false);
+
   return (
-    <div className="relative min-h-screen bg-background">
-      {/* Animated Background */}
-      <AnimatedBackground />
-      
-      {/* Header */}
-      <Header />
-      
-      {/* Main Content */}
-      <main className="relative z-10">
-        <HeroSection />
-        <TechStackSection />
-        <AITeamSection />
-        <ProcessSection />
-        <TestimonialsSection />
-        <CTASection />
-      </main>
-      
-      {/* Footer */}
-      <Footer />
-    </div>
+    <>
+      {/* Splash overlay sits outside Layout so it covers header/footer/bot */}
+      <SplashIntro onDone={() => setRevealed(true)} />
+      <div
+        className={`transition-[opacity,transform] duration-500 ease-out ${
+          revealed ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}
+      >
+        <Layout>
+          <HeroSection />
+          <TechStackSection />
+          <AITeamSection />
+          <ProcessSection />
+          <TestimonialsSection />
+          <CTASection />
+        </Layout>
+      </div>
+    </>
   );
 };
 

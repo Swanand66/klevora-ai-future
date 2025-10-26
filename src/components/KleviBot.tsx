@@ -100,9 +100,11 @@ const KleviBot = () => {
     setLoading(false);
   };
 
-  // Theme colors
-  const brandColor = '#C7A4FF';
-  const accentColor = '#18181B';
+  // Theme colors with gradient and light surface
+  const brandGradient = 'linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%)';
+  const brandColor = '#000000ff';
+  const surfaceColor = '#ffffff';
+  const foregroundColor = '#0A0A0A';
   const borderColor = '#C7A4FF';
 
   return (
@@ -115,7 +117,7 @@ const KleviBot = () => {
           width: 56,
           height: 56,
           borderRadius: '50%',
-          background: brandColor,
+          background: brandGradient,
           boxShadow: '0 4px 16px rgba(108,71,255,0.15)',
           border: `2px solid ${borderColor}`,
           display: 'flex',
@@ -137,9 +139,9 @@ const KleviBot = () => {
             position: 'fixed',
             bottom: 88,
             right: 16,
-            width: 340,
-            maxHeight: 420,
-            background: accentColor,
+            width: 380,
+            maxHeight: 520,
+            background: surfaceColor,
             borderRadius: 18,
             boxShadow: '0 8px 32px rgba(199,164,255,0.18)',
             border: `1.5px solid ${borderColor}`,
@@ -151,8 +153,8 @@ const KleviBot = () => {
         >
           {/* Header */}
           <div style={{
-            background: brandColor,
-            color: accentColor,
+            background: brandGradient,
+            color: '#ffffff',
             padding: '12px 18px',
             fontWeight: 600,
             fontSize: 18,
@@ -168,7 +170,7 @@ const KleviBot = () => {
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: accentColor,
+                color: '#ffffff',
                 fontSize: 22,
                 cursor: 'pointer',
                 fontWeight: 700
@@ -181,7 +183,7 @@ const KleviBot = () => {
           <div style={{
             padding: '8px 18px',
             borderBottom: `1px solid ${borderColor}`,
-            background: accentColor,
+            background: surfaceColor,
             display: 'flex',
             alignItems: 'center',
             gap: 8
@@ -189,8 +191,8 @@ const KleviBot = () => {
             <button
               onClick={() => setShowFaqMenu((prev) => !prev)}
               style={{
-                background: brandColor,
-                color: accentColor,
+                background: brandGradient,
+                color: '#ffffff',
                 border: 'none',
                 borderRadius: 8,
                 padding: '4px 10px',
@@ -204,20 +206,22 @@ const KleviBot = () => {
                 position: 'absolute',
                 top: 60,
                 right: 24,
-                background: accentColor,
+                background: surfaceColor,
                 border: `1px solid ${borderColor}`,
                 borderRadius: 10,
                 boxShadow: '0 2px 8px rgba(199,164,255,0.10)',
                 zIndex: 10000,
-                width: 260
+                width: 260,
+                maxHeight: 220,
+                overflowY: 'auto'
               }}>
                 <ul style={{ listStyle: 'none', margin: 0, padding: 10 }}>
                   {faqs.map((faq, idx) => (
                     <li key={idx} style={{ marginBottom: 8 }}>
                       <button
                         style={{
-                          background: brandColor,
-                          color: accentColor,
+                          background: brandGradient,
+                          color: '#ffffff',
                           border: 'none',
                           borderRadius: 6,
                           padding: '6px 10px',
@@ -243,7 +247,7 @@ const KleviBot = () => {
             flex: 1,
             overflowY: 'auto',
             padding: '12px 18px',
-            background: accentColor
+            background: surfaceColor
           }}>
             {messages.map((message, idx) => (
               <div
@@ -255,13 +259,14 @@ const KleviBot = () => {
                 }}
               >
                 <span style={{
-                  background: message.sender === 'user' ? brandColor : accentColor,
-                  color: message.sender === 'user' ? accentColor : brandColor,
+                  background: message.sender === 'user' ? brandGradient : surfaceColor,
+                  color: message.sender === 'user' ? '#ffffff' : brandColor,
                   padding: '8px 14px',
                   borderRadius: message.sender === 'user' ? '16px 16px 0 16px' : '16px 16px 16px 0',
                   fontSize: 15,
                   maxWidth: 220,
-                  boxShadow: message.sender === 'user' ? '0 2px 8px rgba(199,164,255,0.10)' : 'none',
+                  boxShadow: message.sender === 'user' ? '0 2px 8px rgba(199,164,255,0.10)' : '0 1px 3px rgba(0,0,0,0.06)',
+                  border: message.sender === 'user' ? 'none' : '1px solid rgba(199,164,255,0.50)',
                   wordBreak: 'break-word',
                   fontWeight: 500,
                 }}>
@@ -272,7 +277,7 @@ const KleviBot = () => {
             {loading && (
               <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 8 }}>
                 <span style={{
-                  background: accentColor,
+                  background: surfaceColor,
                   color: brandColor,
                   padding: '8px 14px',
                   borderRadius: '16px 16px 16px 0',
@@ -288,7 +293,7 @@ const KleviBot = () => {
           {/* Input area */}
           <div style={{
             padding: '10px 18px',
-            background: accentColor,
+            background: surfaceColor,
             borderTop: `1px solid ${borderColor}`,
             display: 'flex',
             alignItems: 'center',
@@ -306,8 +311,8 @@ const KleviBot = () => {
                 borderRadius: 8,
                 padding: '8px 12px',
                 fontSize: 15,
-                color: brandColor,
-                background: accentColor,
+                color: foregroundColor,
+                background: surfaceColor,
                 outline: 'none',
                 fontWeight: 500,
               }}
@@ -316,8 +321,8 @@ const KleviBot = () => {
             <button
               onClick={() => handleSendMessage()}
               style={{
-                background: brandColor,
-                color: accentColor,
+                 background: brandGradient,
+                color: '#ffffff',
                 border: 'none',
                 borderRadius: 8,
                 padding: '8px 18px',

@@ -1,5 +1,7 @@
 import React from 'react';
-import { PhoneOutgoing, Calculator, BarChart3, Glasses } from 'lucide-react';
+import { PhoneOutgoing, Calculator, BarChart3, Glasses, Wrench, Plug, Workflow, ShieldCheck, Rocket, Clock } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const AITeamSection = () => {
   const agents = [
@@ -34,17 +36,105 @@ const AITeamSection = () => {
     <section id="agents" className="relative py-20 px-6 lg:px-8 z-10">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Meet Your New AI Team
+        <div className="mb-10">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+            Meet Your New AI Team — Custom Services Available
           </h2>
-          <p className="text-xl text-foreground-muted max-w-3xl mx-auto">
-            Think of these as your digital employees - they never take breaks, never make mistakes, and they love doing the repetitive tasks you hate.
+          <p className="text-lg text-foreground-muted max-w-4xl mx-auto text-center">
+            Ready-to-run agents for common tasks, plus fully bespoke AI solutions crafted for your exact workflows, tools, and KPIs.
           </p>
+
+          {/* Two-column: bullets + CTA card */}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-5 gap-6">
+            <div className="md:col-span-3 card-glow">
+              <h3 className="text-2xl font-semibold mb-3">What we build, custom for you</h3>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-foreground-muted">
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> CRM/ERP/Helpdesk Integrations</li>
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> Workflow Automation & Orchestration</li>
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> AI Voice & Chat Assistants (brand-tuned)</li>
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> Data Pipelines, ETL & Analytics Agents</li>
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> Human-in-the-loop Reviews & Approvals</li>
+                <li className="flex items-start gap-2"><span className="mt-1 w-1.5 h-1.5 rounded-full bg-primary"/> Security, Compliance & Audit-ready Logic</li>
+              </ul>
+            </div>
+            <div className="md:col-span-2 card-glow flex flex-col items-start justify-between relative z-20">
+              <div>
+                <h3 className="text-2xl font-semibold mb-2">Let’s design your agent</h3>
+                <p className="text-sm text-foreground-muted mb-4">Average turnaround: 2–4 weeks. Fixed milestones. Integration-first approach.</p>
+              </div>
+              <div className="mt-2">
+                <Link to="/contact" className="relative z-20 pointer-events-auto inline-block">
+                  <Button className="btn-primary">Request a Custom Solution</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* Agents Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Agents Grid moved below custom sections */}
+
+        {/* Custom AI Services – feature highlights */}
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold mb-6 text-center">Custom AI Services that scale with you</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><Wrench className="w-5 h-5 text-primary"/><span className="font-semibold">Bespoke Agents</span></div>
+              <p className="text-sm text-foreground-muted">We design agents around your exact process, tone, and guardrails. No one-size-fits-all.</p>
+            </div>
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><Plug className="w-5 h-5 text-primary"/><span className="font-semibold">Deep Integrations</span></div>
+              <p className="text-sm text-foreground-muted">Connect to CRM, ERP, ticketing systems, Slack, email, Zapier or custom APIs.</p>
+            </div>
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><Workflow className="w-5 h-5 text-primary"/><span className="font-semibold">Orchestrated Workflows</span></div>
+              <p className="text-sm text-foreground-muted">Multi-step automations with human-in-the-loop for accuracy where it matters.</p>
+            </div>
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><ShieldCheck className="w-5 h-5 text-primary"/><span className="font-semibold">Security & Compliance</span></div>
+              <p className="text-sm text-foreground-muted">Role-based access, audit trails, PII handling, and policy-aligned behavior.</p>
+            </div>
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><Clock className="w-5 h-5 text-primary"/><span className="font-semibold">SLAs & Monitoring</span></div>
+              <p className="text-sm text-foreground-muted">Uptime commitments, alerts, analytics dashboards and continuous tuning.</p>
+            </div>
+            <div className="card-glow">
+              <div className="flex items-center gap-3 mb-2"><Rocket className="w-5 h-5 text-primary"/><span className="font-semibold">Fast Iteration</span></div>
+              <p className="text-sm text-foreground-muted">Ship v1 fast, then iterate weekly with measurable KPI improvements.</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Process timeline */}
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold mb-6 text-center">How custom builds work</h3>
+          <div className="card-glow">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+              <div>
+                <div className="font-semibold mb-1">1. Discovery</div>
+                <p className="text-sm text-foreground-muted">Goals, data sources, success metrics.</p>
+              </div>
+              <div>
+                <div className="font-semibold mb-1">2. Design</div>
+                <p className="text-sm text-foreground-muted">Flows, prompts, safeguards, UX.</p>
+              </div>
+              <div>
+                <div className="font-semibold mb-1">3. Build</div>
+                <p className="text-sm text-foreground-muted">Agent logic, integrations, tests.</p>
+              </div>
+              <div>
+                <div className="font-semibold mb-1">4. Integrate</div>
+                <p className="text-sm text-foreground-muted">Environments, access, training.</p>
+              </div>
+              <div>
+                <div className="font-semibold mb-1">5. Iterate</div>
+                <p className="text-sm text-foreground-muted">Monitor KPIs and improve weekly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Agents Grid (now at the bottom) */}
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {agents.map((agent, index) => {
             const IconComponent = agent.icon;
             return (
@@ -67,6 +157,11 @@ const AITeamSection = () => {
                   <h3 className="text-xl font-semibold mb-3 text-foreground">
                     {agent.title}
                   </h3>
+                  <div className="mb-4">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/90 text-primary-foreground">
+                      Customizable
+                    </span>
+                  </div>
                   <p className="text-foreground-muted mb-6 leading-relaxed">
                     {agent.description}
                   </p>

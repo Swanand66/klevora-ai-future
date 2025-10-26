@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import klerovaLogo from '@/assets/klerova-logo.png';
+import { NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,13 +17,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header 
@@ -33,51 +28,38 @@ const Header = () => {
       <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <div className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2">
             <img 
               src={klerovaLogo} 
               alt="Klevora Logo" 
               className="w-11 h-11 object-contain"
             />
-            <span className="text-2xl font-black text-gradient tracking-tight">klevora</span>
+            <span className="text-2xl font-black text-gradient tracking-tight">Klevora</span>
+          </Link>
+
+          {/* Desktop Navigation - Moved to Right */}
+          <div className="hidden lg:flex items-center space-x-8">
+            <nav className="flex items-center space-x-8">
+              <NavLink to="/about" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                About Us
+              </NavLink>
+              <NavLink to="/agents" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                Agents
+              </NavLink>
+              <NavLink to="/testimonials" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                Testimonials
+              </NavLink>
+                <NavLink to="/careers" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                  Careers
+                </NavLink>
+            </nav>
+            <Link to="/contact" onClick={closeMenu}>
+              <Button className="btn-primary">Contact Us</Button>
+            </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('agents')}
-              className="nav-link"
-            >
-              Agents
-            </button>
-            <button 
-              onClick={() => scrollToSection('process')}
-              className="nav-link"
-            >
-              Process
-            </button>
-            <button 
-              onClick={() => scrollToSection('technology')}
-              className="nav-link"
-            >
-              Technology
-            </button>
-            <button 
-              onClick={() => scrollToSection('testimonials')}
-              className="nav-link"
-            >
-              Testimonials
-            </button>
-          </nav>
-
-          {/* CTA Button & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <Button 
-              onClick={() => scrollToSection('contact')}
-              className="hidden lg:inline-flex btn-primary"
-            >
-              Contact Us
-            </Button>
+          {/* Mobile Menu Button */}
+          <div className="flex items-center space-x-4 lg:hidden">
 
             {/* Mobile Menu Button */}
             <button
@@ -97,36 +79,21 @@ const Header = () => {
         {isMenuOpen && (
           <div className="lg:hidden py-4 border-t border-border mt-4">
             <div className="flex flex-col space-y-4">
-              <button 
-                onClick={() => scrollToSection('agents')}
-                className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
-              >
+              <NavLink to="/about" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
+                About Us
+              </NavLink>
+              <NavLink to="/agents" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
                 Agents
-              </button>
-              <button 
-                onClick={() => scrollToSection('process')}
-                className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
-              >
-                Process
-              </button>
-              <button 
-                onClick={() => scrollToSection('technology')}
-                className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
-              >
-                Technologies
-              </button>
-              <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="text-left py-2 text-foreground-muted hover:text-primary transition-colors"
-              >
-                Highlights
-              </button>
-              <Button 
-                onClick={() => scrollToSection('contact')}
-                className="btn-primary w-full mt-4"
-              >
-                Contact Us
-              </Button>
+              </NavLink>
+              <NavLink to="/testimonials" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
+                Testimonials
+              </NavLink>
+                <NavLink to="/careers" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
+                  Careers
+                </NavLink>
+              <Link to="/contact" onClick={closeMenu} className="w-full mt-4">
+                <Button className="btn-primary w-full">Contact Us</Button>
+              </Link>
             </div>
           </div>
         )}

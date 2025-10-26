@@ -32,7 +32,7 @@ const TechStackSection = () => {
   const duplicatedTechs = [...technologies, ...technologies];
 
   return (
-    <section id="technology" className="relative py-20 px-6 lg:px-8 z-10">
+    <section id="technology" className="relative py-20 px-6 lg:px-8 z-10 mt-20">
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <div className="text-center mb-16">
