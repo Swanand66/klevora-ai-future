@@ -82,7 +82,7 @@ const SplashIntro: React.FC<SplashIntroProps> = ({
       style={{
         position: 'fixed',
         inset: 0,
-        background: '#ffffff',
+        background: '#0A0A0A', // dark mode background
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -93,11 +93,24 @@ const SplashIntro: React.FC<SplashIntroProps> = ({
         <img src={logo} alt="Klevora logo" style={{ width: 56, height: 56 }} />
         {showTyping && (
           <span
-            className="bg-gradient-to-r from-[hsl(280_85%_55%)] to-[hsl(320_95%_62%)] bg-clip-text text-transparent"
-            style={{ fontSize: 42, lineHeight: '44px', fontWeight: 700, letterSpacing: 0.5, fontFamily: 'Poppins, sans-serif' }}
+            style={{ 
+              fontSize: 42, 
+              lineHeight: '56px', 
+              fontWeight: 700, 
+              letterSpacing: 0.5, 
+              fontFamily: 'Poppins, sans-serif',
+              paddingBottom: '12px',
+              minHeight: '68px',
+              display: 'flex',
+              alignItems: 'center',
+              background: 'linear-gradient(135deg, hsl(280,85%,55%) 0%, hsl(320,95%,62%) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              textShadow: '0 2px 12px rgba(108,71,255,0.25)', // optional neon effect
+            }}
           >
             {typed}
-            <span className="inline-block w-[10px] h-[1.15em] align-[-0.15em] ml-[2px] bg-[hsl(300_90%_55%)] animate-pulse" />
+            <span className="inline-block w-[10px] h-[42px] ml-[2px] bg-[hsl(300_90%_55%)] animate-pulse" style={{ marginBottom: '4px' }} />
           </span>
         )}
       </div>

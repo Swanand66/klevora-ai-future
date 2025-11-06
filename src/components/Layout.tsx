@@ -9,11 +9,13 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="relative min-h-screen bg-background">
+    <div className="relative min-h-screen overflow-x-hidden">
       <AnimatedBackground />
-      <Header />
-      <main className="relative z-10">{children}</main>
-      <Footer />
+      <div className="relative z-10">
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };

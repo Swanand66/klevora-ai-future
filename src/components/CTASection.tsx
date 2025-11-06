@@ -26,7 +26,7 @@ const CTASection  = () => {
               </div>
 
               {/* Quick reassurance bullets */}
-              <ul className="space-y-2 text-sm text-foreground-muted mb-8" style={{ color: "#00e43de3" }}>
+              <ul className="space-y-2 text-sm text-foreground mb-8">
                 <li>• Free chat to see if we're a fit</li>
                 <li>• No pressure, no commitments</li>
                 <li>• Honest advice about what you need</li>

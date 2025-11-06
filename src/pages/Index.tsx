@@ -9,7 +9,7 @@ import TestimonialsSection from '@/components/TestimonialsSection';
 import CTASection from '@/components/CTASection';
 
 const Index = () => {
-  const [revealed, setRevealed] = useState(false);
+  const [revealed, setRevealed] = useState(true); // Set to true by default
 
   return (
     <>

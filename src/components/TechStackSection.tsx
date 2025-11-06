@@ -39,7 +39,7 @@ const TechStackSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Powered by Leading Technology
           </h2>
-          <p className="text-xl text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-xl text-foreground max-w-2xl mx-auto">
             We use a modern, robust tech stack to build scalable and powerful AI solutions.
           </p>
         </div>

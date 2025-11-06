@@ -8,27 +8,51 @@ const AITeamSection = () => {
     {
       icon: PhoneOutgoing,
       title: 'AI Voice Agent',
-      description: 'Give your brand a voice. This AI handles calls, answers queries, and provides 24/7 support with natural, human-like conversation.',
-      features: ['Customer Support Calls', 'Appointment Booking', 'Lead Qualification']
+      description: 'Conversational AI for calls and support that automates common tasks and integrates with your stack.',
+      features: [
+        'Automated customer support',
+        'Appointment booking',
+        'Lead qualification',
+        'CRM & helpdesk integration',
+        '24/7 availability'
+      ]
 
     },
     {
-      icon: Calculator,
-      title: 'Finance Agent',
-      description: "No more spreadsheet headaches. Get instant financial insights and catch problems before they become expensive mistakes.",
-      features: ['Expense Automation', 'Financial Reports', 'Budget Optimization']
+      icon: ShieldCheck,
+      title: 'Privacy first AI-CRM',
+      description: 'On-premises CRM agent that automates outreach and qualification while keeping data in your environment.',
+      features: [
+        'On-premises (FastAPI + React)',
+        'Automated lead qualification',
+        'Multi-channel outreach',
+        'Locally-hosted LLMs',
+        'Cloud-free compliance'
+      ]
     },
     {
       icon: BarChart3,
-      title: 'Performance Monitor',
-      description: "See what's really working in your business. Get clear reports that actually help you make better decisions.",
-      features: ['KPI Tracking', 'Trend Analysis', 'Performance Reports']
+      title: 'TrackX Agent',
+      description: 'Workspace AI that automates check-ins, tasks and meetings while surfacing team productivity insights.',
+      features: [
+        'Unified check-ins',
+        'Automated task flows',
+        'Meetings & leave tracking',
+        'Team dynamics analysis',
+        'Real-time productivity insights'
+      ]
     },
     {
       icon: Glasses,
       title: 'Customer Support Agent',
-      description: "An intelligent customer support agent designed to provide instant, 24/7 assistance. It can handle FAQs, troubleshoot issues, guide users through processes, and escalate complex queries when needed.",
-      features: ['Handle FAQs', 'Troubleshoot Issues', 'Escalate', 'Guide Users']
+      description: 'Support AI that answers FAQs, troubleshoots, guides users and escalates when needed, instantly.',
+      features: [
+        '24/7 instant assistance',
+        'Handle FAQs',
+        'Troubleshoot issues',
+        'Guide user flows',
+        'Escalate complex queries'
+      ]
     }
   ];
 
@@ -37,10 +61,10 @@ const AITeamSection = () => {
       <div className="max-w-7xl mx-auto">
         {/* Section Title */}
         <div className="mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gradient">
             Meet Your New AI Team — Custom Services Available
           </h2>
-          <p className="text-lg text-foreground-muted max-w-4xl mx-auto text-center">
+          <p className="text-lg text-foreground max-w-4xl mx-auto text-center">
             Ready-to-run agents for common tasks, plus fully bespoke AI solutions crafted for your exact workflows, tools, and KPIs.
           </p>
 
@@ -130,6 +154,42 @@ const AITeamSection = () => {
                 <p className="text-sm text-foreground-muted">Monitor KPIs and improve weekly.</p>
               </div>
             </div>
+          </div>
+        </div>
+        {/* AI Safety Framework - agent-style card (matches other agent cards) */}
+        <div className="mt-10">
+          <div className="card-agent group w-full flex items-start gap-8 p-6 relative" style={{ alignItems: 'stretch' }}>
+            <div className="flex-shrink-0">
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-primary-bright flex items-center justify-center mb-4 transition-all duration-300 ease-out">
+                <ShieldCheck className="w-8 h-8 text-primary-foreground" />
+              </div>
+            </div>
+
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold mb-2 text-foreground">AI Safety Framework</h3>
+              <div className="mb-3">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-primary/90 text-primary-foreground">Core</span>
+              </div>
+              <p className="text-foreground-muted mb-4 leading-relaxed">AgentSentry lets you observe and control agent/tool actions originating from LLM apps. It records detailed traces (user inputs, assistant outputs, and tool calls), evaluates them against safety rules, and returns allow / warn / block decisions along with human-readable reasons. AgentSentry also supports asynchronous, dynamic checks via a worker for runtime policy evaluation.</p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-2">
+                <div>
+                  <div className="font-semibold mb-1">Observe & control</div>
+                  <p className="text-sm text-foreground-muted">Watch agent and tool actions in real time and intercept or modify behavior when needed.</p>
+                </div>
+                <div>
+                  <div className="font-semibold mb-1">Trace recording</div>
+                  <p className="text-sm text-foreground-muted">Store traces of user, assistant, and tool calls for auditing, debugging, and replay.</p>
+                </div>
+                <div>
+                  <div className="font-semibold mb-1">Policy eval & async checks</div>
+                  <p className="text-sm text-foreground-muted">Evaluate traces against safety rules to return allow / warn / block decisions with reasons; supports async dynamic checks via a worker.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* subtle hover overlay to match agent cards */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/3 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out rounded-xl pointer-events-none" />
           </div>
         </div>
 

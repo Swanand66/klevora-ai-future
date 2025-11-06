@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import avatar1 from '@/assets/1North.jpg';
 import avatar2 from '@/assets/PES.png';
-import avatar3 from '@/assets/testimonial-avatar-3.png';
+
 
 const TestimonialsSection = () => {
   const testimonials = [
@@ -19,17 +19,11 @@ const TestimonialsSection = () => {
       title: "INDIA",
       avatar: avatar2,
       rating: 5
-    },
-    {
-      quote: "I was worried about the tech setup, but it was surprisingly easy. Now my team spends time on what matters instead of repetitive tasks.",
-      name: "David Kim",
-      title: "Operations Director, InnovateTech",
-      avatar: avatar3,
-      rating: 5
     }
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const nextTestimonial = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
@@ -43,25 +37,30 @@ const TestimonialsSection = () => {
 
   // Auto-advance testimonials
   useEffect(() => {
+    if (isPaused) return;
     const interval = setInterval(nextTestimonial, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isPaused]);
 
   return (
     <section id="testimonials" className="relative py-12 px-6 lg:px-8 z-10">
       <div className="max-w-4xl mx-auto">
         {/* Section Title */}
         <div className="text-center mb-10">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">
             Hear From Our Users
           </h2>
-          <p className="text-lg text-foreground-muted max-w-2xl mx-auto">
+          <p className="text-lg text-foreground max-w-2xl mx-auto">
             Real people, real businesses, real results. Here's what happens when you upgrade to AI.
           </p>
         </div>
 
         {/* Testimonial Carousel */}
-        <div className="relative">
+        <div 
+          className="relative"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <div className="overflow-hidden">
             <div 
               className="flex transition-transform duration-500 ease-in-out"
@@ -72,7 +71,7 @@ const TestimonialsSection = () => {
                   key={index}
                   className="w-full flex-shrink-0 px-4"
                 >
-                  <div className="card-glow max-w-3xl mx-auto text-center">
+                  <div className="card-glow max-w-3xl mx-auto text-center p-8 rounded-2xl transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg">
                     {/* Stars */}
                     <div className="flex justify-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (

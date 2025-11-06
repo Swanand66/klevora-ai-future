@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import klerovaLogo from '@/assets/klerova-logo.png';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { NavLink, Link } from 'react-router-dom';
 
 const Header = () => {
@@ -26,9 +27,9 @@ const Header = () => {
       }`}
     >
       <div className="w-full px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center h-20 relative">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center space-x-2 absolute left-0">
             <img 
               src={klerovaLogo} 
               alt="Klevora Logo" 
@@ -37,30 +38,31 @@ const Header = () => {
             <span className="text-2xl font-black text-gradient tracking-tight">Klevora</span>
           </Link>
 
-          {/* Desktop Navigation - Moved to Right */}
-          <div className="hidden lg:flex items-center space-x-8">
+          {/* Desktop Navigation - Centered */}
+          <div className="hidden lg:flex items-center justify-center flex-1">
             <nav className="flex items-center space-x-8">
               <NavLink to="/about" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
                 About Us
               </NavLink>
               <NavLink to="/agents" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
-                Agents
+                Solutions
               </NavLink>
               <NavLink to="/testimonials" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
                 Testimonials
               </NavLink>
-                <NavLink to="/careers" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
-                  Careers
-                </NavLink>
+              <NavLink to="/careers" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                Careers
+              </NavLink>
+              <NavLink to="/contact" className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}>
+                Contact Us
+              </NavLink>
             </nav>
-            <Link to="/contact" onClick={closeMenu}>
-              <Button className="btn-primary">Contact Us</Button>
-            </Link>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center space-x-4 lg:hidden">
-
+          {/* Theme Toggle and Mobile Menu */}
+          <div className="flex items-center space-x-4">
+            <ThemeToggle />
+            
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -83,17 +85,17 @@ const Header = () => {
                 About Us
               </NavLink>
               <NavLink to="/agents" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
-                Agents
+                Solutions
               </NavLink>
               <NavLink to="/testimonials" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
                 Testimonials
               </NavLink>
-                <NavLink to="/careers" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
-                  Careers
-                </NavLink>
-              <Link to="/contact" onClick={closeMenu} className="w-full mt-4">
-                <Button className="btn-primary w-full">Contact Us</Button>
-              </Link>
+              <NavLink to="/careers" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
+                Careers
+              </NavLink>
+              <NavLink to="/contact" onClick={closeMenu} className={({isActive}) => `text-left py-2 text-foreground-muted hover:text-primary transition-colors ${isActive ? 'text-primary' : ''}`}>
+                Contact Us
+              </NavLink>
             </div>
           </div>
         )}

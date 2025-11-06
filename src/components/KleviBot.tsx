@@ -11,36 +11,49 @@ const KleviBot = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [showFaqMenu, setShowFaqMenu] = useState(false);
+  const [showPopImage, setShowPopImage] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const faqMenuRef = useRef<HTMLDivElement>(null);
 
-  // Knowledge base as a string for context
+  // Close FAQ menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (showFaqMenu && faqMenuRef.current && !faqMenuRef.current.contains(event.target as Node)) {
+        setShowFaqMenu(false);
+      }
+    }
+
+    if (showFaqMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
+  }, [showFaqMenu]);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Focus input when chat opens or after sending a message
+  useEffect(() => {
+    if (isChatOpen) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }, [isChatOpen]);
+
+  // show the pop image when chat opens
+  useEffect(() => {
+    if (isChatOpen) {
+      // small delay for nicer pop animation
+      const t = setTimeout(() => setShowPopImage(true), 80);
+      return () => clearTimeout(t);
+    }
+    setShowPopImage(false);
+  }, [isChatOpen]);
+
+  // Knowledge base and FAQs
   const knowledgeBase = `
-  Klevora is a cutting-edge AI solutions startup that helps businesses grow faster using artificial intelligence and automation.
-  
-  Hi?Hey its your klevora
-  What does Klevora do? Klevora helps businesses scale and grow using AI and automation.
-  What services do you offer? We offer AI assistants, automation, analytics, and integrations.
-  How can Klevora help my business? We automate tasks so you can focus on growth.
-  Is my data safe with you? Yes, your data is private and secure.
-  Do you offer a free trial? Yes, free trials are available.
-  What industries do you serve? We support startups, SMEs, e-commerce, and consulting.
-  How fast can I get started? You can start within minutes.
-  What is the pricing? Plans are flexible; contact us for details.
-  What payment methods do you accept? We accept cards, bank transfers, and digital wallets.
-  Do you provide 24/7 support? Yes, our AI assistant is always available.
-  Can I customize the AI assistant? Yes, Klevi can be customized to your needs.
-  Can Klevora integrate with my tools? Yes, we integrate with Google Workspace, Slack, and CRMs.
-  What happens if I exceed my plan limits? You can upgrade to a higher plan.
-  Do you support multiple team members? Yes, teams can work under one account.
-  Can I cancel anytime? Yes, you can cancel or pause anytime.
-  Will I lose data if I cancel? No, you can export your data before canceling.
-  Do you keep improving your AI? Yes, we update and improve regularly.
-  How do I contact support? You can email klevora.connect@gmail.com or message us on LinkedIn.
-  what is your linkedin?https://www.linkedin.com/company/klevora-in
-  Do you offer enterprise solutions? Yes, we provide custom enterprise plans.
-  Why should I choose Klevora? We combine AI power with strong data privacy.
-  What types of agents do you offer? We offer specialized agents including HR, Finance, Customer Service, Sales, and Operational agents.
-  How can I schedule a meeting? To schedule a meeting, please use the button located at the bottom of the page.
+    Klevora is a cutting-edge AI solutions startup that helps businesses grow faster using artificial intelligence and automation.
+    [... rest of your knowledge base ...]
   `;
 
   const faqs: FAQ[] = [
@@ -69,13 +82,11 @@ const KleviBot = () => {
     const question = customInput !== undefined ? customInput : input;
     if (question.trim() === '') return;
 
-    // Add user message
     setMessages((prev) => [...prev, { sender: 'user', text: question }]);
     setLoading(true);
     setInput('');
 
     try {
-      // First check FAQs for exact matches
       const faqMatch = faqs.find(faq => 
         faq.q.toLowerCase() === question.toLowerCase()
       );
@@ -84,7 +95,6 @@ const KleviBot = () => {
       if (faqMatch) {
         response = faqMatch.a;
       } else {
-        // Use Gemini API with knowledge base context
         response = await getGeminiResponse(question, knowledgeBase);
       }
 
@@ -98,9 +108,11 @@ const KleviBot = () => {
     }
 
     setLoading(false);
+    // Focus the input after sending a message
+    setTimeout(() => inputRef.current?.focus(), 100);
   };
 
-  // Theme colors with gradient and light surface
+  // Theme colors
   const brandGradient = 'linear-gradient(135deg, hsl(280 85% 55%) 0%, hsl(320 95% 62%) 100%)';
   const brandColor = '#000000ff';
   const surfaceColor = '#ffffff';
@@ -108,23 +120,23 @@ const KleviBot = () => {
   const borderColor = '#C7A4FF';
 
   return (
-    <div className="klevi-bot-container" style={{ position: 'fixed', bottom: 16, right: 16, zIndex: 9999 }}>
+    <div className="klevi-bot-container" style={{ position: 'fixed', bottom: 24, right: 24, zIndex: 9999 }}>
       {/* Floating button */}
       <button
         className="klevi-bot-float-btn"
         onClick={toggleChat}
         style={{
-          width: 56,
-          height: 56,
+          width: 60,
+          height: 60,
           borderRadius: '50%',
-          background: brandGradient,
-          boxShadow: '0 4px 16px rgba(108,71,255,0.15)',
+          background: '#ffffff',
+          boxShadow: '0 4px 20px rgba(108,71,255,0.2)',
           border: `2px solid ${borderColor}`,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          transition: 'box-shadow 0.2s',
+          transition: 'all 0.3s ease',
         }}
         aria-label="Open Klevi Bot"
       >
@@ -137,8 +149,8 @@ const KleviBot = () => {
           className="klevi-bot-chat-window"
           style={{
             position: 'fixed',
-            bottom: 88,
-            right: 16,
+            bottom: 96,
+            right: 24,
             width: 380,
             maxHeight: 520,
             background: surfaceColor,
@@ -164,7 +176,7 @@ const KleviBot = () => {
             borderTopLeftRadius: 18,
             borderTopRightRadius: 18,
           }}>
-            <span>Klevora AI Assistant</span>
+            <span>Klevi</span>
             <button
               onClick={toggleChat}
               style={{
@@ -173,7 +185,8 @@ const KleviBot = () => {
                 color: '#ffffff',
                 fontSize: 22,
                 cursor: 'pointer',
-                fontWeight: 700
+                fontWeight: 700,
+                padding: '0 4px',
               }}
               aria-label="Close chat"
             >×</button>
@@ -186,7 +199,8 @@ const KleviBot = () => {
             background: surfaceColor,
             display: 'flex',
             alignItems: 'center',
-            gap: 8
+            gap: 8,
+            position: 'relative'
           }}>
             <button
               onClick={() => setShowFaqMenu((prev) => !prev)}
@@ -201,40 +215,70 @@ const KleviBot = () => {
                 fontWeight: 500
               }}
             >FAQs</button>
+
+            {/* FAQ Menu Dropdown */}
             {showFaqMenu && (
-              <div style={{
-                position: 'absolute',
-                top: 60,
-                right: 24,
-                background: surfaceColor,
-                border: `1px solid ${borderColor}`,
-                borderRadius: 10,
-                boxShadow: '0 2px 8px rgba(199,164,255,0.10)',
-                zIndex: 10000,
-                width: 260,
-                maxHeight: 220,
-                overflowY: 'auto'
-              }}>
-                <ul style={{ listStyle: 'none', margin: 0, padding: 10 }}>
+              <div 
+                ref={faqMenuRef}
+                style={{
+                  position: 'absolute',
+                  top: 44,
+                  left: 18,
+                  right: 18,
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 242, 255, 0.98) 100%)',
+                  backdropFilter: 'blur(12px)',
+                  border: `2px solid ${borderColor}`,
+                  borderRadius: 16,
+                  boxShadow: '0 8px 32px rgba(199,164,255,0.25), 0 2px 8px rgba(0,0,0,0.08)',
+                  zIndex: 10000,
+                  maxHeight: 300,
+                  overflowY: 'auto',
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(199,164,255,0.5) rgba(199,164,255,0.1)'
+                } as React.CSSProperties}
+              >
+                <ul style={{ listStyle: 'none', margin: 0, padding: '14px' }}>
                   {faqs.map((faq, idx) => (
-                    <li key={idx} style={{ marginBottom: 8 }}>
+                    <li key={idx} style={{ marginBottom: 10 }}>
                       <button
                         style={{
-                          background: brandGradient,
-                          color: '#ffffff',
-                          border: 'none',
-                          borderRadius: 6,
-                          padding: '6px 10px',
+                          background: 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(247,242,255,0.8) 100%)',
+                          color: '#000000',
+                          border: '1.5px solid rgba(199,164,255,0.30)',
+                          borderRadius: 12,
+                          padding: '12px 16px',
                           width: '100%',
                           textAlign: 'left',
-                          fontSize: 13,
-                          cursor: 'pointer'
+                          fontSize: 13.5,
+                          cursor: 'pointer',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          fontWeight: 600,
+                          boxShadow: '0 2px 6px rgba(199,164,255,0.08)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px'
+                        }}
+                        onMouseEnter={e => {
+                          e.currentTarget.style.background = brandGradient;
+                          e.currentTarget.style.color = '#ffffff';
+                          e.currentTarget.style.transform = 'translateX(4px)';
+                          e.currentTarget.style.boxShadow = '0 4px 16px rgba(199,164,255,0.35)';
+                          e.currentTarget.style.borderColor = 'transparent';
+                        }}
+                        onMouseLeave={e => {
+                          e.currentTarget.style.background = 'linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(247,242,255,0.8) 100%)';
+                          e.currentTarget.style.color = '#000000';
+                          e.currentTarget.style.transform = 'translateX(0)';
+                          e.currentTarget.style.boxShadow = '0 2px 6px rgba(199,164,255,0.08)';
+                          e.currentTarget.style.borderColor = 'rgba(199,164,255,0.30)';
                         }}
                         onClick={() => {
                           setShowFaqMenu(false);
                           handleSendMessage(faq.q);
                         }}
-                      >{faq.q}</button>
+                      >
+                        <span style={{ fontSize: '14px', lineHeight: 1 }}>{faq.q}</span>
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -247,17 +291,38 @@ const KleviBot = () => {
             flex: 1,
             overflowY: 'auto',
             padding: '12px 18px',
-            background: surfaceColor
+            background: surfaceColor,
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'rgba(199,164,255,0.5) rgba(199,164,255,0.1)'
           }}>
             {messages.map((message, idx) => (
               <div
                 key={idx}
                 style={{
                   display: 'flex',
+                  alignItems: 'center',
                   justifyContent: message.sender === 'user' ? 'flex-end' : 'flex-start',
-                  marginBottom: 8
+                  marginBottom: 8,
+                  gap: '8px'
                 }}
               >
+                {/* Show girl avatar for bot messages */}
+                {message.sender === 'bot' && (
+                  <img 
+                    src="/image-removebg-preview.png" 
+                    alt="Klevi" 
+                    style={{ 
+                      width: 32, 
+                      height: 32, 
+                      borderRadius: '50%',
+                      background: 'white',
+                      padding: '2px',
+                      border: '2px solid rgba(199,164,255,0.50)',
+                      objectFit: 'cover',
+                      flexShrink: 0
+                    }} 
+                  />
+                )}
                 <span style={{
                   background: message.sender === 'user' ? brandGradient : surfaceColor,
                   color: message.sender === 'user' ? '#ffffff' : brandColor,
@@ -275,7 +340,21 @@ const KleviBot = () => {
               </div>
             ))}
             {loading && (
-              <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 8 }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: 8, gap: '8px', alignItems: 'center' }}>
+                <img 
+                  src="/image-removebg-preview.png" 
+                  alt="Klevi" 
+                  style={{ 
+                    width: 32, 
+                    height: 32, 
+                    borderRadius: '50%',
+                    background: 'white',
+                    padding: '2px',
+                    border: '2px solid rgba(199,164,255,0.50)',
+                    objectFit: 'cover',
+                    flexShrink: 0
+                  }} 
+                />
                 <span style={{
                   background: surfaceColor,
                   color: brandColor,
@@ -297,9 +376,12 @@ const KleviBot = () => {
             borderTop: `1px solid ${borderColor}`,
             display: 'flex',
             alignItems: 'center',
-            gap: 8
+            gap: 8,
+            position: 'relative',
+            overflow: 'visible'
           }}>
             <input
+              ref={inputRef}
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { CountrySelect } from "@/components/ui/country-select";
+import { EmailAutocomplete } from "@/components/ui/email-autocomplete";
 import { Check } from "lucide-react";
 import { z } from "zod";
 
@@ -11,7 +13,7 @@ const contactFormSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
   phone: z.string().trim().min(10, "Phone number must be at least 10 digits").max(15, "Phone number must be less than 15 digits"),
-  message: z.string().trim().min(10, "Message must be at least 10 characters").max(1000, "Message must be less than 1000 characters")
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message must be less than 5000 characters")
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -23,6 +25,7 @@ const ContactForm = () => {
     phone: "",
     message: ""
   });
+  const [countryCode, setCountryCode] = useState("+91");
   const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -44,8 +47,14 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
+      // Add country code to phone number
+      const dataWithCountryCode = {
+        ...formData,
+        phone: formData.phone.startsWith('+') ? formData.phone : `${countryCode}${formData.phone.replace(/^0+/, '')}`
+      };
+      
       // Client-side validation
-      const validatedData = contactFormSchema.parse(formData);
+      const validatedData = contactFormSchema.parse(dataWithCountryCode);
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -149,16 +158,23 @@ const ContactForm = () => {
           <Label htmlFor="email" className="text-foreground font-medium">
             Email <span className="text-accent">*</span>
           </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="your.email@example.com"
-            className={`border-2 ${errors.email ? "border-destructive focus-visible:ring-destructive" : "border-border"}`}
-            disabled={isSubmitting}
-          />
+          <div className="relative">
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="your.email@example.com"
+              className={`border-2 ${errors.email ? "border-destructive focus-visible:ring-destructive" : "border-border"}`}
+              disabled={isSubmitting}
+            />
+            <EmailAutocomplete
+              value={formData.email}
+              onChange={(value) => handleChange({ target: { name: 'email', value } } as any)}
+              disabled={isSubmitting}
+            />
+          </div>
           {errors.email && (
             <p className="text-sm text-destructive">{errors.email}</p>
           )}
@@ -169,16 +185,23 @@ const ContactForm = () => {
           <Label htmlFor="phone" className="text-foreground font-medium">
             Phone Number <span className="text-accent">*</span>
           </Label>
-          <Input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="+91 98765 43210"
-            className={`border-2 ${errors.phone ? "border-destructive focus-visible:ring-destructive" : "border-border"}`}
-            disabled={isSubmitting}
-          />
+          <div className="flex gap-2">
+            <CountrySelect 
+              value={countryCode}
+              onChange={setCountryCode}
+              disabled={isSubmitting}
+            />
+            <Input
+              id="phone"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="98765 43210"
+              className={`border-2 flex-1 ${errors.phone ? "border-destructive focus-visible:ring-destructive" : "border-border"}`}
+              disabled={isSubmitting}
+            />
+          </div>
           {errors.phone && (
             <p className="text-sm text-destructive">{errors.phone}</p>
           )}
@@ -186,9 +209,14 @@ const ContactForm = () => {
 
         {/* Message Field */}
         <div className="space-y-2">
-          <Label htmlFor="message" className="text-foreground font-medium">
-            How can we help? <span className="text-accent">*</span>
-          </Label>
+          <div className="flex justify-between items-center">
+            <Label htmlFor="message" className="text-foreground font-medium">
+              How can we help? <span className="text-accent">*</span>
+            </Label>
+            <span className="text-sm text-foreground-muted">
+              {formData.message.length}/5000
+            </span>
+          </div>
           <Textarea
             id="message"
             name="message"
@@ -196,6 +224,7 @@ const ContactForm = () => {
             onChange={handleChange}
             placeholder="Tell us about your requirements..."
             rows={5}
+            maxLength={5000}
             className={`resize-none border-2 ${errors.message ? "border-destructive focus-visible:ring-destructive" : "border-border"}`}
             disabled={isSubmitting}
           />

@@ -75,17 +75,17 @@ const HeroSection = () => {
 
       <div className="text-center relative z-10 flex flex-col items-center justify-center" style={{ marginTop: '9rem' }}>
         {/* Main Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight">
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 tracking-tight pb-2">
           <span className="text-gradient block mb-4">Klevora</span>
-          <span className="block text-black text-4xl md:text-6xl lg:text-7xl">
+          <span className="block text-foreground text-4xl md:text-6xl lg:text-7xl pb-3">
             Your Klever Upgrade
           </span>
         </h1>
 
         {/* Simple description */}
-        <p className="text-lg text-foreground-muted leading-relaxed max-w-3xl mx-auto mb-6">
-          Our AI assistants take care of the boring, repetitive stuff so you can focus on what really matters growing your business.
-          From automating tasks to unlocking insights from data, we make it easier to scale smarter, faster, and with less effort.
+        <p className="text-lg text-foreground leading-relaxed max-w-3xl mx-auto mb-6 mt-4">
+         At Klevora, we build intelligent, safe, and scalable AI systems. Our AI Safety Framework ensures agents act responsibly by interpreting intent, assessing actions, and deciding when to proceed, warn, or stop balancing speed, reliability, and safety.
+
         </p>
 
         {/* Primary CTA */}
